@@ -131,12 +131,11 @@ const Home: React.FC = () => {
 
                 {/* Hint: hover? with arrow - "Balloon" exit animation */}
                 <AnimatePresence>
-                  {!hasHovered && (
+                  {!hasHovered && !showIntro && (
                     <motion.div 
                       className="absolute top-12 -left-12 md:-left-24 z-20 pointer-events-none block"
                       initial="hidden"
-                      // Only start animating to visible once the intro is gone
-                      animate={!showIntro ? "visible" : "hidden"}
+                      animate="visible"
                       exit="exit"
                     >
                       <div className="transform -rotate-12 flex items-center gap-1 md:gap-2">
