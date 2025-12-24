@@ -69,6 +69,7 @@ export const NAV_ITEMS = [
   { label: 'Work', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Play', path: '/play' },
+  { label: 'Chat', path: '/chat' }, // Added Chat Nav Item
 ];
 
 export const PLAY_ITEMS = [
