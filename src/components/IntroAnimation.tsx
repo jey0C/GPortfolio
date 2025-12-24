@@ -6,13 +6,13 @@ interface IntroAnimationProps {
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'drawing' | 'filling' | 'exit'>('drawing');
+  const [phase, setPhase] = useState<'idle' | 'filling' | 'exit'>('idle');
 
   useEffect(() => {
     // Timeline sequence
-    const timer1 = setTimeout(() => setPhase('filling'), 1500); // Start filling
-    const timer2 = setTimeout(() => setPhase('exit'), 3800);    // Start exit
-    const timer3 = setTimeout(onComplete, 4600);                // Unmount
+    const timer1 = setTimeout(() => setPhase('filling'), 200); // Start filling quickly after mount
+    const timer2 = setTimeout(() => setPhase('exit'), 4200);   // Allow enough time for long animation
+    const timer3 = setTimeout(onComplete, 5000);
 
     return () => {
       clearTimeout(timer1);
@@ -47,18 +47,17 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
 
   // Path Definitions
   const gCirclePath = getCirclePath(g_center_x, centerY, radius);
-  // Tail: Starts top of x-height, goes down, curves left
   const gTailPath = `M ${g_center_x + radius} ${xHeightTop} L ${g_center_x + radius} ${baseline + 10} A ${radius} ${radius} 0 0 1 ${g_center_x} ${baseline + radius + 10}`;
   const iStemPath = `M ${i_x} ${xHeightTop} L ${i_x} ${baseline}`;
   const oCirclePath = getCirclePath(o_center_x, centerY, radius);
 
   // Transitions
-  const drawTransition = { duration: 1.0, ease: "easeInOut" as const };
-  const traceTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
+  const baseTransition = { duration: 0.8, ease: "easeOut" };
+  const traceTransition = { duration: 2.0, ease: "easeInOut" }; // Prolonged
 
   /**
    * TraceablePath Component
-   * Renders the white base, the colored stroke, and the "bead" tracer.
+   * Renders the dim white base track and the colored tracer overlay.
    */
   const TraceablePath = ({ 
     d, 
@@ -71,7 +70,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   }) => {
     return (
       <>
-        {/* 1. Base Layer (White) - Draws first */}
+        {/* 1. Base Layer (White Track) - Fades in, no path drawing */}
         <motion.path
           d={d}
           stroke="white"
@@ -79,13 +78,13 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="transparent"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={drawTransition}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={baseTransition}
         />
 
         {/* 2. Color Layer (Overlay) - Follows the tracer */}
-        {phase !== 'drawing' && (
+        {phase === 'filling' && (
           <motion.path
             d={d}
             stroke={color}
@@ -100,19 +99,19 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
         )}
 
         {/* 3. The Tracer Bead - Moves along the path */}
-        {phase !== 'drawing' && (
+        {phase === 'filling' && (
           <motion.circle
-            r={6} // Bead size
+            r={6} 
             fill="white"
             initial={{ offsetDistance: "0%", opacity: 1 }}
             animate={{ offsetDistance: "100%", opacity: 0 }}
             transition={{ 
               offsetDistance: { ...traceTransition, delay: customDelay },
-              opacity: { duration: 0.2, delay: customDelay + traceTransition.duration - 0.2 } // Fade out at end
+              opacity: { duration: 0.3, delay: customDelay + traceTransition.duration - 0.1 } 
             }}
             style={{
               offsetPath: `path("${d}")`,
-              // @ts-ignore - offsetPath type defs can be tricky in some react versions
+              // @ts-ignore
               offsetRotate: "0deg",
             }}
           />
@@ -122,24 +121,24 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   };
 
   /**
-   * Simple Dot Component (Tracer doesn't look good on a dot, just pop it)
+   * Dot Component
    */
   const Dot = ({ cx, cy, color, customDelay }: { cx: number, cy: number, color: string, customDelay: number }) => (
     <>
       <motion.circle
         cx={cx} cy={cy} r={strokeWidth / 2}
         fill="white"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={drawTransition}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.1 }}
+        transition={baseTransition}
       />
-      {phase !== 'drawing' && (
+      {phase === 'filling' && (
         <motion.circle
           cx={cx} cy={cy} r={strokeWidth / 2}
           fill={color}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ ...traceTransition, delay: customDelay, type: "spring" }}
+          transition={{ duration: 0.6, delay: customDelay, type: "spring" }}
         />
       )}
     </>
@@ -153,30 +152,23 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           exit={{ y: "-100%", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] } }}
         >
           <div className="relative w-full max-w-lg aspect-[2/1] p-8">
-            {/* Grid Background */}
-            <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-20 pointer-events-none">
-              {[...Array(24)].map((_, i) => (
-                <div key={i} className="border-[0.5px] border-stone-500" />
-              ))}
-            </div>
-
             <svg viewBox="0 0 320 160" className="w-full h-full overflow-visible">
               
               {/* LETTER G */}
               <motion.g>
                 <TraceablePath d={gCirclePath} color={colors.g} customDelay={0} />
-                <TraceablePath d={gTailPath} color={colors.g} customDelay={0.4} />
+                <TraceablePath d={gTailPath} color={colors.g} customDelay={0.6} />
               </motion.g>
 
               {/* LETTER I */}
               <motion.g>
-                <TraceablePath d={iStemPath} color={colors.i} customDelay={0.6} />
-                <Dot cx={i_x} cy={xHeightTop - radius} color={colors.i} customDelay={0.7} />
+                <TraceablePath d={iStemPath} color={colors.i} customDelay={1.0} />
+                <Dot cx={i_x} cy={xHeightTop - radius} color={colors.i} customDelay={1.6} />
               </motion.g>
 
               {/* LETTER O */}
               <motion.g>
-                 <TraceablePath d={oCirclePath} color={colors.o} customDelay={0.8} />
+                 <TraceablePath d={oCirclePath} color={colors.o} customDelay={1.4} />
               </motion.g>
 
             </svg>
