@@ -5,25 +5,15 @@ import ProjectCard from '../components/ProjectCard';
 import Button from '../components/Button';
 import { ArrowDown, Layers, Code, Database } from 'lucide-react';
 
+// In a no-build ESM environment, we reference images by URL.
+// Ensure your image is located at: /assets/images/me.jpg
+const PROFILE_IMG_PATH = "/assets/images/me.jpg";
+
 const Home: React.FC = () => {
-  // Start by trying the root path (standard for Vite public folder)
-  // If this fails, we try /public/me.jpg (standard for raw file serving)
-  const [imgSrc, setImgSrc] = useState("/me.jpg");
   const [hasError, setHasError] = useState(false);
   
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
-
-  const handleImgError = () => {
-    if (imgSrc === "/me.jpg") {
-      setImgSrc("/public/me.jpg");
-    } else if (imgSrc === "/public/me.jpg") {
-      // If both fail, we stop trying to avoid infinite loops
-      // and let the browser render the broken image/alt text
-      // so the user knows the file is missing from deployment.
-      setHasError(true);
-    }
-  };
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -60,14 +50,14 @@ const Home: React.FC = () => {
             <motion.div variants={itemVariants} className="mb-8 lg:mb-12">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-8 ring-4 ring-stone-100 dark:ring-stone-800 shadow-xl bg-stone-200 dark:bg-stone-800 relative">
                  <img 
-                    src={imgSrc}
-                    onError={handleImgError}
+                    src={PROFILE_IMG_PATH}
+                    onError={() => setHasError(true)}
                     alt="Giovanni Cruz" 
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    className={`w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 ${hasError ? 'opacity-0' : 'opacity-100'}`}
                   />
                   {hasError && (
                     <div className="absolute inset-0 flex items-center justify-center bg-stone-200 dark:bg-stone-800 text-stone-400 text-xs text-center p-2 font-mono">
-                       Me.jpg not found
+                       IMG NOT FOUND
                     </div>
                   )}
               </div>

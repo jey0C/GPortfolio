@@ -102,4 +102,6 @@ export const PLAY_ITEMS = [
   }
 ];
 
-export const RESUME_URL = "/resume.pdf"; // Placeholder
+// Pointing to the public assets folder.
+// Ensure your PDF is located at: /assets/docs/resume.pdf
+export const RESUME_URL = "/assets/docs/resume.pdf";
