@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import ProjectDetail from './pages/ProjectDetail';
 import About from './pages/About';
 import Play from './pages/Play';
-import ChatPage from './pages/ChatPage'; // Import ChatPage
 
 const App: React.FC = () => {
   return (
@@ -16,7 +15,6 @@ const App: React.FC = () => {
           <Route path="project/:id" element={<ProjectDetail />} />
           <Route path="about" element={<About />} />
           <Route path="play" element={<Play />} />
-          <Route path="chat" element={<ChatPage />} /> {/* New Chat Route */}
         </Route>
       </Routes>
     </Router>
