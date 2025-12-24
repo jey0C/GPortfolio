@@ -29,7 +29,7 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
       case 'underline':
         return (
           <motion.path
-            d="M6 14c28-4 78-6 120 4s65-8 65-8"
+            d="M 10 10 C 60 25 140 25 190 10"
             stroke={color}
             strokeWidth="3"
             strokeLinecap="round"
@@ -73,7 +73,7 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
 
   const getSvgSize = () => {
      switch(type) {
-        case 'underline': return { viewBox: "0 0 200 20", className: "w-full h-auto" };
+        case 'underline': return { viewBox: "0 0 200 30", className: "w-full h-auto" };
         case 'circle': return { viewBox: "0 0 120 80", className: "w-[120%] h-[140%] -top-[20%] -left-[10%]" };
         case 'squiggle': return { viewBox: "0 0 100 30", className: "w-24 h-8" };
         case 'sparkle': return { viewBox: "0 0 30 30", className: "w-8 h-8" };

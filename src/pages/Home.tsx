@@ -4,7 +4,7 @@ import { PROJECTS, RESUME_URL } from '../constants';
 import ProjectCard from '../components/ProjectCard';
 import Button from '../components/Button';
 import Scribble from '../components/Scribble';
-import { ArrowDown, Layers, Code, Database, Shirt, Disc3, Trophy } from 'lucide-react';
+import { Layers, Code, Database, Shirt, Disc3, Gamepad2, Palette } from 'lucide-react';
 
 // Using public folder path for stability across different environments.
 // Please ensure your image is located at: public/assets/images/me.jpg
@@ -111,9 +111,18 @@ const Home: React.FC = () => {
                     )}
                 </motion.div>
 
+                {/* Sticker: My Interests... */}
+                <motion.div 
+                  className="absolute -top-10 -left-6 z-20 bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
+                  variants={stickerVariants}
+                  custom={-5} 
+                >
+                  <span className="font-mono text-xs font-bold uppercase tracking-tighter">My interests...</span>
+                </motion.div>
+
                 {/* Sticker 1: Fashion */}
                 <motion.div 
-                  className="absolute -top-4 -right-10 z-20 bg-white text-stone-900 border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
+                  className="absolute -top-4 -right-10 z-20 bg-blue-500 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
                   custom={12} // Rotation
                 >
@@ -121,9 +130,9 @@ const Home: React.FC = () => {
                   <span className="font-mono text-xs font-bold uppercase tracking-tighter">Fashion</span>
                 </motion.div>
 
-                {/* Sticker 2: Music */}
+                {/* Sticker 2: Music (Moved further left -left-16) */}
                 <motion.div 
-                  className="absolute top-1/2 -left-12 z-20 bg-[#ff4d4d] text-white border-2 border-stone-900 px-3 py-2 rounded-full shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
+                  className="absolute top-20 -left-16 z-20 bg-[#ff4d4d] text-white border-2 border-stone-900 px-3 py-2 rounded-full shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
                   custom={-15} // Rotation
                 >
@@ -131,35 +140,44 @@ const Home: React.FC = () => {
                   <span className="font-mono text-xs font-bold uppercase tracking-tighter">Music</span>
                 </motion.div>
 
-                {/* Sticker 3: Basketball */}
+                {/* Sticker 3: Games */}
                 <motion.div 
-                  className="absolute -bottom-2 -right-6 z-20 bg-orange-500 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
+                  className="absolute bottom-6 -right-8 z-20 bg-emerald-500 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
                   custom={8} // Rotation
                 >
-                  <Trophy size={16} strokeWidth={2.5} />
-                  <span className="font-mono text-xs font-bold uppercase tracking-tighter">Hoops</span>
+                  <Gamepad2 size={16} strokeWidth={2.5} />
+                  <span className="font-mono text-xs font-bold uppercase tracking-tighter">Games</span>
+                </motion.div>
+
+                {/* Sticker 4: Art (Moved upward to bottom-6) */}
+                <motion.div 
+                  className="absolute bottom-6 -left-6 z-20 bg-purple-400 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
+                  variants={stickerVariants}
+                  custom={-10} // Rotation
+                >
+                  <Palette size={16} strokeWidth={2.5} />
+                  <span className="font-mono text-xs font-bold uppercase tracking-tighter">Art</span>
                 </motion.div>
 
               </motion.div>
               
               {/* Playful element near name */}
               <div className="relative inline-block mt-2">
-                <Scribble type="sparkle" className="absolute -top-8 -right-8 text-yellow-500 dark:text-yellow-300" delay={0.8} />
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-stone-900 dark:text-stone-50 mb-6 leading-[0.9] relative z-10">
                   Gio Cruz
                 </h1>
               </div>
 
               <p className="text-xl md:text-2xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed max-w-md relative">
-                Software Engineer merging 
+                Software engineering, with a focus on
                 <span className="relative inline-block whitespace-nowrap mx-2 text-stone-900 dark:text-stone-200 font-bold">
-                   systems thinking
-                   <Scribble type="underline" className="text-stone-400 dark:text-stone-600 top-full mt-1" delay={1.2} />
+                   systems
+                   <Scribble type="underline" className="text-stone-400 dark:text-stone-600 top-[85%]" delay={1.2} />
                 </span> 
-                with 
+                and
                 <span className="relative inline-block whitespace-nowrap mx-2 text-stone-900 dark:text-stone-200 font-bold">
-                  interaction design
+                  interaction
                   <Scribble type="circle" className="text-blue-400/50 dark:text-blue-400/30" delay={1.5} />
                 </span>.
               </p>
@@ -167,7 +185,7 @@ const Home: React.FC = () => {
 
             <motion.div variants={itemVariants} className="flex flex-col gap-6 items-start">
               <p className="text-stone-500 dark:text-stone-500 text-sm max-w-sm leading-relaxed">
-                I build digital instruments and resilient platforms. Currently exploring <span className="font-mono text-xs bg-stone-200 dark:bg-stone-800 px-1 py-0.5 rounded">WebGL</span>, <span className="font-mono text-xs bg-stone-200 dark:bg-stone-800 px-1 py-0.5 rounded">Distributed Systems</span>, and the space between them.
+                I’m interested in how technical foundations and interface design come together in real products.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -179,11 +197,7 @@ const Home: React.FC = () => {
               </div>
             </motion.div>
           </div>
-
-          <motion.div variants={itemVariants} className="hidden lg:flex items-center gap-2 text-stone-400 text-xs font-bold tracking-widest uppercase opacity-50 font-mono">
-            <ArrowDown className="w-4 h-4 animate-bounce" />
-            Scroll to Explore
-          </motion.div>
+          
         </motion.div>
 
         {/* RIGHT COLUMN: Content Stream */}
