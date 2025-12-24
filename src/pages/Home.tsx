@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { PROJECTS, RESUME_URL } from '../constants';
 import ProjectCard from '../components/ProjectCard';
 import Button from '../components/Button';
 import Scribble from '../components/Scribble';
 import { Layers, Code, Database, Shirt, Disc3, Gamepad2, Palette } from 'lucide-react';
 
-// Using external placeholder to prevent local asset generation issues
-const PROFILE_IMG_PATH = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";
+// Using local asset path
+const PROFILE_IMG_PATH = "/assets/images/me.jpg";
 
 const Home: React.FC = () => {
   const [hasError, setHasError] = useState(false);
+  const [hasHovered, setHasHovered] = useState(false);
   
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
@@ -51,10 +52,11 @@ const Home: React.FC = () => {
     })
   };
 
-  // Hint animation variants - appears when NOT hovering
-  const hintVariants: Variants = {
-    hidden: { opacity: 1, x: 0, transition: { delay: 1, duration: 0.8 } },
-    hover: { opacity: 0, x: 20, transition: { duration: 0.2 } }
+  // Hint animation: float away when exited
+  const hintAnimation = {
+    initial: { opacity: 0, x: 10 },
+    animate: { opacity: 1, x: 0, transition: { delay: 1, duration: 0.8 } },
+    exit: { opacity: 0, x: 10, y: -10, transition: { duration: 0.3 } }
   };
 
   // Image animation variants
@@ -90,6 +92,7 @@ const Home: React.FC = () => {
                 className="relative inline-block group"
                 initial="hidden"
                 whileHover="hover"
+                onHoverStart={() => setHasHovered(true)}
               >
                 {/* Main Image Container */}
                 <motion.div 
@@ -100,7 +103,10 @@ const Home: React.FC = () => {
                       src={PROFILE_IMG_PATH}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        if (!target.src.includes('unsplash') && !hasError) {
+                        // Fallback logic for development environments
+                        if (!target.src.includes('/src/') && !hasError) {
+                           target.src = '/src' + PROFILE_IMG_PATH; 
+                        } else {
                            setHasError(true);
                         }
                       }}
@@ -114,20 +120,27 @@ const Home: React.FC = () => {
                     )}
                 </motion.div>
 
-                {/* Hint: hover? with arrow */}
-                <motion.div 
-                  className="absolute top-12 -left-28 md:-left-36 lg:-left-44 z-20 pointer-events-none hidden sm:block"
-                  variants={hintVariants}
-                >
-                  <div className="transform -rotate-12 flex items-center gap-2">
-                     <span className="font-mono text-xl md:text-2xl font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
-                        hover?
-                     </span>
-                     <div className="w-10 h-6 md:w-12 md:h-8 relative">
-                         <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2} />
-                     </div>
-                  </div>
-                </motion.div>
+                {/* Hint: hover? with arrow - Permanently disappears on hover */}
+                <AnimatePresence>
+                  {!hasHovered && (
+                    <motion.div 
+                      className="absolute top-12 -left-12 md:-left-24 z-20 pointer-events-none block"
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      variants={hintAnimation}
+                    >
+                      <div className="transform -rotate-12 flex items-center gap-1 md:gap-2">
+                         <span className="font-mono text-xs md:text-sm font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
+                            hover?
+                         </span>
+                         <div className="w-8 h-5 md:w-10 md:h-6 relative">
+                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2} />
+                         </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Sticker: My Interests... */}
                 <motion.div 
