@@ -6,6 +6,12 @@ import Button from '../components/Button';
 import { ArrowRight, Code, Database, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// CONFIGURATION:
+// 1. Create a folder named 'public' in your project root
+// 2. Place your image inside 'public' and name it 'me.jpg'
+const LOCAL_PROFILE_IMG = "/me.jpg";
+const FALLBACK_IMG = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";
+
 const Home: React.FC = () => {
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
@@ -78,7 +84,14 @@ const Home: React.FC = () => {
           >
             <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-800 relative group">
               <img 
-                src="assets/me.jpg" 
+                src={LOCAL_PROFILE_IMG}
+                onError={(e) => {
+                  if (e.currentTarget.src !== FALLBACK_IMG) {
+                    console.warn(`Could not load ${LOCAL_PROFILE_IMG}. Using fallback. Ensure 'me.jpg' is in the 'public' folder.`);
+                    e.currentTarget.src = FALLBACK_IMG;
+                    e.currentTarget.onerror = null;
+                  }
+                }}
                 alt="Giovanni Cruz" 
                 className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
               />
