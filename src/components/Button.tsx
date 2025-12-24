@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   // Spring animation config
   const hoverAnim = { scale: 1.05 };
   const tapAnim = { scale: 0.95 };
-  const transition = { type: "spring", stiffness: 400, damping: 17 };
+  const transition = { type: "spring" as const, stiffness: 400, damping: 17 };
 
   if (href) {
     return (

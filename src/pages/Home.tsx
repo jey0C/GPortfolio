@@ -37,14 +37,14 @@ const Home: React.FC = () => {
   };
 
   // Sticker animation variants
-  const stickerVariants = {
+  const stickerVariants: Variants = {
     hidden: { scale: 0, opacity: 0, rotate: 0 },
     hover: (custom: number) => ({
       scale: 1,
       opacity: 1,
       rotate: custom,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 15,
         mass: 0.8
@@ -53,13 +53,13 @@ const Home: React.FC = () => {
   };
 
   // Image animation variants
-  const imageVariants = {
+  const imageVariants: Variants = {
     hidden: { scale: 1, rotate: 0 },
     hover: {
       scale: 1.05,
       rotate: -2,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 20
       }
@@ -102,7 +102,7 @@ const Home: React.FC = () => {
                         }
                       }}
                       alt="Giovanni Cruz" 
-                      className={`w-full h-full object-cover ${hasError ? 'opacity-0' : 'opacity-100'}`}
+                      className={`w-full h-full object-cover transition-opacity duration-500 ${hasError ? 'opacity-0' : 'opacity-100'}`}
                     />
                     {hasError && (
                       <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-200 dark:bg-stone-800 text-stone-500 text-xs text-center p-4 font-mono">

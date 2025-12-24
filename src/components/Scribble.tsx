@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 type ScribbleType = 'underline' | 'circle' | 'sparkle' | 'squiggle';
 
@@ -11,14 +11,14 @@ interface ScribbleProps {
 }
 
 const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'currentColor', delay = 0 }) => {
-  const pathVariants = {
+  const pathVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: { 
       pathLength: 1, 
       opacity: 1,
       transition: { 
         duration: 0.9, 
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
         delay: delay 
       }
     }
