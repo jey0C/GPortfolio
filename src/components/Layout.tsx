@@ -45,12 +45,16 @@ const Layout: React.FC = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-50 flex flex-col font-sans selection:bg-stone-200 dark:selection:bg-stone-800 selection:text-stone-900 dark:selection:text-stone-50 transition-colors duration-300">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-50 flex flex-col font-sans selection:bg-stone-200 dark:selection:bg-stone-800 selection:text-stone-900 dark:selection:text-stone-50 transition-colors duration-300 relative">
+      
+      {/* Film Grain Texture Overlay */}
+      <div className="bg-noise" />
+
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 py-4' : 'bg-transparent py-6'}`}
       >
         <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between">
-          <NavLink to="/" className="text-xl font-bold tracking-tight z-50 hover:opacity-80 transition-opacity">
+          <NavLink to="/" className="text-xl font-bold tracking-tight z-50 hover:opacity-80 transition-opacity flex items-center gap-2">
             Gio Cruz
           </NavLink>
 
@@ -137,13 +141,13 @@ const Layout: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <main className="flex-grow pt-24 md:pt-32 px-6">
+      <main className="flex-grow pt-24 md:pt-32 px-6 relative z-10">
         <div className="container mx-auto max-w-6xl">
           <Outlet />
         </div>
       </main>
 
-      <footer className="py-12 md:py-24 border-t border-stone-200 dark:border-stone-800 mt-24">
+      <footer className="py-12 md:py-24 border-t border-stone-200 dark:border-stone-800 mt-24 relative z-10">
         <div className="container mx-auto max-w-6xl px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>
             <h4 className="font-bold text-lg mb-2 text-stone-900 dark:text-stone-50">Giovanni "Gio" Cruz</h4>
@@ -157,8 +161,9 @@ const Layout: React.FC = () => {
             <a href="#" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">Twitter</a>
           </div>
         </div>
-        <div className="container mx-auto max-w-6xl px-6 mt-12 text-sm text-stone-400 dark:text-stone-500">
-          © {new Date().getFullYear()} Giovanni Cruz. All rights reserved.
+        <div className="container mx-auto max-w-6xl px-6 mt-12 text-sm text-stone-400 dark:text-stone-500 flex flex-col md:flex-row justify-between items-center gap-4">
+           <span>© {new Date().getFullYear()} Giovanni Cruz. All rights reserved.</span>
+           <span className="font-mono text-xs">Designed & Engineered.</span>
         </div>
       </footer>
     </div>

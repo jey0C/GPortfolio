@@ -27,13 +27,15 @@
             },
             fontFamily: {
               sans: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['Space Mono', 'monospace'],
             },
           },
         },
       }
     </script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+      
       body {
         font-family: 'Inter', sans-serif;
         background-color: #fafaf9; /* stone-50 */
@@ -44,6 +46,23 @@
         background-color: #0c0a09; /* stone-950 */
         color: #fafaf9; /* stone-50 */
       }
+      
+      /* Noise Texture Overlay */
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+      .dark .bg-noise {
+        opacity: 0.06;
+      }
+
       /* Custom scrollbar for subtle feel */
       ::-webkit-scrollbar {
         width: 8px;
@@ -77,11 +96,9 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+  </body>
 </html>
