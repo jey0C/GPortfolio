@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PROJECTS, RESUME_URL } from '../constants';
 import ProjectCard from '../components/ProjectCard';
@@ -7,14 +7,37 @@ import { ArrowRight, Code, Database, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // CONFIGURATION:
-// 1. Create a folder named 'public' in your project root
-// 2. Place your image inside 'public' and name it 'me.jpg'
-const LOCAL_PROFILE_IMG = "/me.jpg";
+// We try multiple paths to find the profile image depending on the server configuration.
+// This avoids using `new URL(import.meta.url)` which can crash in certain environments.
+const ATTEMPT_PATHS = [
+  "/me.jpg",           // Standard "public is root" behavior (Vite, CRA)
+  "/public/me.jpg",    // "Root is root" behavior (Simple static servers)
+  "me.jpg",            // Relative path fallback
+  "public/me.jpg"      // Relative public path fallback
+];
+
 const FALLBACK_IMG = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";
 
 const Home: React.FC = () => {
+  const [currentPathIndex, setCurrentPathIndex] = useState(0);
+  const [imgSrc, setImgSrc] = useState(ATTEMPT_PATHS[0]);
+  
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
+
+  const handleImgError = () => {
+    const nextIndex = currentPathIndex + 1;
+    if (nextIndex < ATTEMPT_PATHS.length) {
+      console.log(`Failed to load ${imgSrc}, trying ${ATTEMPT_PATHS[nextIndex]}`);
+      setImgSrc(ATTEMPT_PATHS[nextIndex]);
+      setCurrentPathIndex(nextIndex);
+    } else {
+      if (imgSrc !== FALLBACK_IMG) {
+        console.warn("All local image paths failed. Using remote fallback.");
+        setImgSrc(FALLBACK_IMG);
+      }
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -77,25 +100,20 @@ const Home: React.FC = () => {
 
           {/* Profile Image */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            whileHover={{ scale: 1.02, rotate: 2, transition: { duration: 0.3 } }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full md:w-[400px] lg:w-[480px] flex-shrink-0 order-1 md:order-2"
+            className="w-full md:w-[400px] lg:w-[480px] flex-shrink-0 order-1 md:order-2 perspective-1000"
           >
-            <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-800 relative group">
+            <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-800 relative group shadow-2xl shadow-stone-200 dark:shadow-stone-950/50">
               <img 
-                src={LOCAL_PROFILE_IMG}
-                onError={(e) => {
-                  if (e.currentTarget.src !== FALLBACK_IMG) {
-                    console.warn(`Could not load ${LOCAL_PROFILE_IMG}. Using fallback. Ensure 'me.jpg' is in the 'public' folder.`);
-                    e.currentTarget.src = FALLBACK_IMG;
-                    e.currentTarget.onerror = null;
-                  }
-                }}
+                src={imgSrc}
+                onError={handleImgError}
                 alt="Giovanni Cruz" 
-                className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out filter grayscale group-hover:grayscale-0"
               />
-              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-3xl z-10" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-3xl z-10 pointer-events-none" />
             </div>
           </motion.div>
         </div>
