@@ -3,6 +3,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { NAV_ITEMS, RESUME_URL } from '../constants';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import GioLogo from './GioLogo';
 
 const Layout: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,8 +55,8 @@ const Layout: React.FC = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 py-4' : 'bg-transparent py-6'}`}
       >
         <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between">
-          <NavLink to="/" className="text-xl font-bold tracking-tight z-50 hover:opacity-80 transition-opacity flex items-center gap-2">
-            Gio Cruz
+          <NavLink to="/" className="z-50 hover:opacity-80 transition-opacity flex items-center" aria-label="Gio Cruz Home">
+             <GioLogo className="h-9 w-auto" />
           </NavLink>
 
           {/* Desktop Nav */}

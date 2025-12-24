@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface IntroAnimationProps {
@@ -144,11 +145,12 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
     </>
   );
 
-  return (
+  // Use Portal to escape local stacking context of <main>
+  return createPortal(
     <AnimatePresence>
       {phase !== 'exit' && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black"
           exit={{ y: "-100%", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] } }}
         >
           <div className="relative w-full max-w-lg aspect-[2/1] p-8">
@@ -175,7 +177,8 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
