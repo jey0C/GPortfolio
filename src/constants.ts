@@ -102,7 +102,6 @@ export const PLAY_ITEMS = [
   }
 ];
 
-// Pointing to the public assets folder.
-// Ensure your PDF is located at: public/assets/docs/resume.pdf
-// The URL should be relative to the domain root.
-export const RESUME_URL = "/assets/docs/resume.pdf";
+// Placeholder for Resume URL.
+// Replace '#' with your actual PDF URL (e.g., hosted on S3, Google Drive, or local public folder) when ready.
+export const RESUME_URL = "#";

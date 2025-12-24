@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
 
-type ScribbleType = 'underline' | 'circle' | 'sparkle' | 'squiggle';
+type ScribbleType = 'underline' | 'circle' | 'sparkle' | 'squiggle' | 'curved-arrow';
 
 interface ScribbleProps {
   type: ScribbleType;
@@ -66,6 +66,27 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
              <motion.path d="M5 5 L25 25 M5 25 L25 5" stroke={color} strokeWidth="1.5" strokeLinecap="round" variants={pathVariants} />
           </>
         );
+      case 'curved-arrow':
+        return (
+          <>
+            <motion.path
+              d="M 5 15 Q 25 5 45 15"
+              stroke={color}
+              strokeWidth="2"
+              strokeLinecap="round"
+              fill="none"
+              variants={pathVariants}
+            />
+            <motion.path
+              d="M 38 8 L 45 15 L 38 22"
+              stroke={color}
+              strokeWidth="2"
+              strokeLinecap="round"
+              fill="none"
+              variants={pathVariants}
+            />
+          </>
+        );
       default:
         return null;
     }
@@ -77,6 +98,7 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
         case 'circle': return { viewBox: "0 0 120 80", className: "w-[120%] h-[140%] -top-[20%] -left-[10%]" };
         case 'squiggle': return { viewBox: "0 0 100 30", className: "w-24 h-8" };
         case 'sparkle': return { viewBox: "0 0 30 30", className: "w-8 h-8" };
+        case 'curved-arrow': return { viewBox: "0 0 50 30", className: "w-full h-full" };
         default: return { viewBox: "0 0 100 100", className: "" };
      }
   }

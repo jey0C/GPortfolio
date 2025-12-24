@@ -6,9 +6,8 @@ import Button from '../components/Button';
 import Scribble from '../components/Scribble';
 import { Layers, Code, Database, Shirt, Disc3, Gamepad2, Palette } from 'lucide-react';
 
-// Using public folder path for stability across different environments.
-// Please ensure your image is located at: public/assets/images/me.jpg
-const PROFILE_IMG_PATH = "/assets/images/me.jpg";
+// Using external placeholder to prevent local asset generation issues
+const PROFILE_IMG_PATH = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop";
 
 const Home: React.FC = () => {
   const [hasError, setHasError] = useState(false);
@@ -50,6 +49,12 @@ const Home: React.FC = () => {
         mass: 0.8
       }
     })
+  };
+
+  // Hint animation variants - appears when NOT hovering
+  const hintVariants: Variants = {
+    hidden: { opacity: 1, x: 0, transition: { delay: 1, duration: 0.8 } },
+    hover: { opacity: 0, x: 20, transition: { duration: 0.2 } }
   };
 
   // Image animation variants
@@ -95,9 +100,7 @@ const Home: React.FC = () => {
                       src={PROFILE_IMG_PATH}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        if (!target.src.includes('/src/') && !hasError) {
-                           target.src = '/src' + PROFILE_IMG_PATH;
-                        } else {
+                        if (!target.src.includes('unsplash') && !hasError) {
                            setHasError(true);
                         }
                       }}
@@ -109,6 +112,21 @@ const Home: React.FC = () => {
                          <span className="font-bold mb-2">Image Not Found</span>
                       </div>
                     )}
+                </motion.div>
+
+                {/* Hint: hover? with arrow */}
+                <motion.div 
+                  className="absolute top-12 -left-28 md:-left-36 lg:-left-44 z-20 pointer-events-none hidden sm:block"
+                  variants={hintVariants}
+                >
+                  <div className="transform -rotate-12 flex items-center gap-2">
+                     <span className="font-mono text-xl md:text-2xl font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
+                        hover?
+                     </span>
+                     <div className="w-10 h-6 md:w-12 md:h-8 relative">
+                         <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2} />
+                     </div>
+                  </div>
                 </motion.div>
 
                 {/* Sticker: My Interests... */}
