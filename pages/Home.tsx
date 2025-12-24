@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { PROJECTS, RESUME_URL } from '../constants';
 import ProjectCard from '../components/ProjectCard';
 import Button from '../components/Button';
 import Scribble from '../src/components/Scribble';
+import IntroAnimation from '../components/IntroAnimation';
 import { Layers, Code, Database, Shirt, Disc3, Gamepad2, Palette } from 'lucide-react';
 
-// Using public folder path for stability across different environments.
-// Please ensure your image is located at: public/assets/images/me.jpg
+// Using local asset path
 const PROFILE_IMG_PATH = "/assets/images/me.jpg";
 
 const Home: React.FC = () => {
   const [hasError, setHasError] = useState(false);
+  const [hasHovered, setHasHovered] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   
+  // Optional: Only show intro once per session
+  useEffect(() => {
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    if (hasSeenIntro) {
+      setShowIntro(false);
+    } else {
+      sessionStorage.setItem('hasSeenIntro', 'true');
+    }
+  }, []);
+
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
+  const hintText = "hover?".split("");
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -68,6 +81,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Intro Overlay */}
+      {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
         
         {/* LEFT COLUMN: Sticky Identity (Desktop) */}
@@ -75,7 +91,7 @@ const Home: React.FC = () => {
           className="lg:col-span-5 lg:h-[calc(100vh-8rem)] lg:sticky lg:top-32 flex flex-col justify-between"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={!showIntro ? "visible" : "hidden"} // Wait for intro
         >
           <div>
             <motion.div variants={itemVariants} className="mb-8 lg:mb-12 relative">
@@ -85,6 +101,7 @@ const Home: React.FC = () => {
                 className="relative inline-block group"
                 initial="hidden"
                 whileHover="hover"
+                onHoverStart={() => setHasHovered(true)}
               >
                 {/* Main Image Container */}
                 <motion.div 
@@ -95,8 +112,9 @@ const Home: React.FC = () => {
                       src={PROFILE_IMG_PATH}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
+                        // Fallback logic for development environments
                         if (!target.src.includes('/src/') && !hasError) {
-                           target.src = '/src' + PROFILE_IMG_PATH;
+                           target.src = '/src' + PROFILE_IMG_PATH; 
                         } else {
                            setHasError(true);
                         }
@@ -110,6 +128,66 @@ const Home: React.FC = () => {
                       </div>
                     )}
                 </motion.div>
+
+                {/* Hint: hover? with arrow - "Balloon" exit animation */}
+                <AnimatePresence>
+                  {!hasHovered && (
+                    <motion.div 
+                      className="absolute top-12 -left-12 md:-left-24 z-20 pointer-events-none block"
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="transform -rotate-12 flex items-center gap-1 md:gap-2">
+                         <div className="flex font-mono text-xs md:text-sm font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
+                            {hintText.map((char, index) => (
+                              <motion.span
+                                key={index}
+                                className="inline-block"
+                                variants={{
+                                  hidden: { opacity: 0, y: 10 },
+                                  visible: { 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 1.5 + (index * 0.1), duration: 0.4 } 
+                                  },
+                                  exit: { 
+                                    opacity: 0,
+                                    // Pseudo-random balloon float effect based on index to avoid hydration mismatch
+                                    y: -30 - ((index * 7) % 20), 
+                                    x: (index % 2 === 0 ? -1 : 1) * (5 + (index * 2)), 
+                                    rotate: (index % 2 === 0 ? -10 : 10) * (index + 1),
+                                    transition: { 
+                                      duration: 1.2, 
+                                      ease: [0.22, 1, 0.36, 1]
+                                    } 
+                                  }
+                                }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))}
+                         </div>
+                         <motion.div 
+                            className="w-8 h-5 md:w-10 md:h-6 relative"
+                            variants={{
+                              hidden: { opacity: 0, scale: 0.8 },
+                              visible: { opacity: 1, scale: 1, transition: { delay: 2.3, duration: 0.4 } },
+                              exit: { 
+                                opacity: 0, 
+                                y: -20, 
+                                rotate: -10,
+                                scale: 0.9,
+                                transition: { duration: 0.8, ease: "easeOut" } 
+                              }
+                            }}
+                         >
+                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2.3} />
+                         </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Sticker: My Interests... */}
                 <motion.div 

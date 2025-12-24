@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { PROJECTS, RESUME_URL } from '../constants';
 import ProjectCard from '../components/ProjectCard';
 import Button from '../components/Button';
 import Scribble from '../components/Scribble';
+import IntroAnimation from '../components/IntroAnimation';
 import { Layers, Code, Database, Shirt, Disc3, Gamepad2, Palette } from 'lucide-react';
 
 // Using local asset path
@@ -12,7 +13,18 @@ const PROFILE_IMG_PATH = "/assets/images/me.jpg";
 const Home: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const [hasHovered, setHasHovered] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   
+  // Optional: Only show intro once per session
+  useEffect(() => {
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
+    if (hasSeenIntro) {
+      setShowIntro(false);
+    } else {
+      sessionStorage.setItem('hasSeenIntro', 'true');
+    }
+  }, []);
+
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
   const hintText = "hover?".split("");
@@ -69,6 +81,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Intro Overlay */}
+      {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
         
         {/* LEFT COLUMN: Sticky Identity (Desktop) */}
@@ -76,7 +91,7 @@ const Home: React.FC = () => {
           className="lg:col-span-5 lg:h-[calc(100vh-8rem)] lg:sticky lg:top-32 flex flex-col justify-between"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={!showIntro ? "visible" : "hidden"} // Wait for intro
         >
           <div>
             <motion.div variants={itemVariants} className="mb-8 lg:mb-12 relative">
@@ -128,6 +143,7 @@ const Home: React.FC = () => {
                             {hintText.map((char, index) => (
                               <motion.span
                                 key={index}
+                                className="inline-block"
                                 variants={{
                                   hidden: { opacity: 0, y: 10 },
                                   visible: { 
