@@ -12,62 +12,48 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = false }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5 }}
-      className={`group relative flex flex-col ${priority ? 'md:flex-row gap-8 md:items-center mb-24' : 'mb-16'}`}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="group block"
     >
-      {/* Image Section */}
+      {/* Image Container */}
       <Link 
         to={`/project/${project.id}`} 
-        className={`block overflow-hidden rounded-lg bg-stone-200 dark:bg-stone-800 ${priority ? 'w-full md:w-3/5 aspect-video' : 'w-full aspect-[4/3]'}`}
+        className="block overflow-hidden bg-stone-200 dark:bg-stone-800 rounded-xl mb-6 relative aspect-video shadow-sm"
       >
-        <div className="w-full h-full relative overflow-hidden">
-          <img 
-            src={project.image} 
-            alt={project.title} 
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/5 dark:group-hover:bg-stone-900/20 transition-colors duration-300" />
-        </div>
+        <img 
+          src={project.image} 
+          alt={project.title} 
+          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-white/5 transition-colors duration-500" />
       </Link>
 
-      {/* Content Section */}
-      <div className={`${priority ? 'w-full md:w-2/5 pt-6 md:pt-0' : 'pt-6'}`}>
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex flex-wrap gap-2">
-            {project.tags.slice(0, 3).map(tag => (
-              <span key={tag} className="text-xs font-medium uppercase tracking-wider text-stone-500 dark:text-stone-400 border border-stone-200 dark:border-stone-700 px-2 py-1 rounded-md">
-                {tag}
-              </span>
-            ))}
-          </div>
+      {/* Content */}
+      <div className="flex flex-col gap-3">
+        <div className="flex items-baseline justify-between">
+          <Link to={`/project/${project.id}`} className="flex items-center gap-2">
+            <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50 group-hover:underline decoration-2 underline-offset-4 decoration-stone-300 dark:decoration-stone-600">
+              {project.title}
+            </h3>
+            <ArrowUpRight className="w-5 h-5 text-stone-400 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300" />
+          </Link>
         </div>
 
-        <Link to={`/project/${project.id}`} className="group/link block">
-          <h3 className="text-2xl md:text-3xl font-semibold text-stone-900 dark:text-stone-50 mb-3 group-hover/link:underline decoration-stone-400 decoration-1 underline-offset-4">
-            {project.title}
-            <ArrowUpRight className="inline-block ml-2 w-5 h-5 text-stone-400 opacity-0 -translate-y-1 translate-x-1 transition-all group-hover/link:opacity-100 group-hover/link:translate-y-0 group-hover/link:translate-x-0" />
-          </h3>
-          <p className="text-lg text-stone-600 dark:text-stone-300 leading-relaxed mb-6">
-            {project.oneLiner}
-          </p>
-        </Link>
-        
-        {priority && (
-          <p className="text-sm text-stone-500 dark:text-stone-400 mb-6 hidden md:block">
-            {project.description}
-          </p>
-        )}
+        <p className="text-lg text-stone-600 dark:text-stone-400 leading-relaxed max-w-xl">
+          {priority ? project.description : project.oneLiner}
+        </p>
 
-        <Link 
-          to={`/project/${project.id}`}
-          className="text-stone-900 dark:text-stone-50 font-medium text-sm border-b border-stone-900 dark:border-stone-50 pb-0.5 hover:text-stone-600 dark:hover:text-stone-300 hover:border-stone-600 dark:hover:border-stone-300 transition-colors"
-        >
-          View Case Study
-        </Link>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {project.tags.slice(0, 4).map(tag => (
+            <span key={tag} className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-500 bg-stone-100 dark:bg-stone-800/50 px-2 py-1 rounded">
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
