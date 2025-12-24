@@ -135,7 +135,8 @@ const Home: React.FC = () => {
                     <motion.div 
                       className="absolute top-12 -left-12 md:-left-24 z-20 pointer-events-none block"
                       initial="hidden"
-                      animate="visible"
+                      // Only start animating to visible once the intro is gone
+                      animate={!showIntro ? "visible" : "hidden"}
                       exit="exit"
                     >
                       <div className="transform -rotate-12 flex items-center gap-1 md:gap-2">
@@ -149,7 +150,7 @@ const Home: React.FC = () => {
                                   visible: { 
                                     opacity: 1, 
                                     y: 0, 
-                                    transition: { delay: 1.5 + (index * 0.1), duration: 0.4 } 
+                                    transition: { delay: 1.2 + (index * 0.1), duration: 0.4 } 
                                   },
                                   exit: { 
                                     opacity: 0,
@@ -172,7 +173,7 @@ const Home: React.FC = () => {
                             className="w-8 h-5 md:w-10 md:h-6 relative"
                             variants={{
                               hidden: { opacity: 0, scale: 0.8 },
-                              visible: { opacity: 1, scale: 1, transition: { delay: 2.3, duration: 0.4 } },
+                              visible: { opacity: 1, scale: 1, transition: { delay: 2.0, duration: 0.4 } },
                               exit: { 
                                 opacity: 0, 
                                 y: -20, 
@@ -182,7 +183,7 @@ const Home: React.FC = () => {
                               }
                             }}
                          >
-                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2.3} />
+                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2.0} />
                          </motion.div>
                       </div>
                     </motion.div>
