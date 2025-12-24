@@ -15,6 +15,7 @@ const Home: React.FC = () => {
   
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
+  const hintText = "hover?".split("");
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -50,13 +51,6 @@ const Home: React.FC = () => {
         mass: 0.8
       }
     })
-  };
-
-  // Hint animation: float away when exited
-  const hintAnimation = {
-    initial: { opacity: 0, x: 10 },
-    animate: { opacity: 1, x: 0, transition: { delay: 1, duration: 0.8 } },
-    exit: { opacity: 0, x: 10, y: -10, transition: { duration: 0.3 } }
   };
 
   // Image animation variants
@@ -120,23 +114,60 @@ const Home: React.FC = () => {
                     )}
                 </motion.div>
 
-                {/* Hint: hover? with arrow - Permanently disappears on hover */}
+                {/* Hint: hover? with arrow - "Balloon" exit animation */}
                 <AnimatePresence>
                   {!hasHovered && (
                     <motion.div 
                       className="absolute top-12 -left-12 md:-left-24 z-20 pointer-events-none block"
-                      initial="initial"
-                      animate="animate"
+                      initial="hidden"
+                      animate="visible"
                       exit="exit"
-                      variants={hintAnimation}
                     >
                       <div className="transform -rotate-12 flex items-center gap-1 md:gap-2">
-                         <span className="font-mono text-xs md:text-sm font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
-                            hover?
-                         </span>
-                         <div className="w-8 h-5 md:w-10 md:h-6 relative">
-                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2} />
+                         <div className="flex font-mono text-xs md:text-sm font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
+                            {hintText.map((char, index) => (
+                              <motion.span
+                                key={index}
+                                variants={{
+                                  hidden: { opacity: 0, y: 10 },
+                                  visible: { 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 1.5 + (index * 0.1), duration: 0.4 } 
+                                  },
+                                  exit: { 
+                                    opacity: 0,
+                                    // Pseudo-random balloon float effect based on index to avoid hydration mismatch
+                                    y: -30 - ((index * 7) % 20), 
+                                    x: (index % 2 === 0 ? -1 : 1) * (5 + (index * 2)), 
+                                    rotate: (index % 2 === 0 ? -10 : 10) * (index + 1),
+                                    transition: { 
+                                      duration: 1.2, 
+                                      ease: [0.22, 1, 0.36, 1]
+                                    } 
+                                  }
+                                }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))}
                          </div>
+                         <motion.div 
+                            className="w-8 h-5 md:w-10 md:h-6 relative"
+                            variants={{
+                              hidden: { opacity: 0, scale: 0.8 },
+                              visible: { opacity: 1, scale: 1, transition: { delay: 2.3, duration: 0.4 } },
+                              exit: { 
+                                opacity: 0, 
+                                y: -20, 
+                                rotate: -10,
+                                scale: 0.9,
+                                transition: { duration: 0.8, ease: "easeOut" } 
+                              }
+                            }}
+                         >
+                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2.3} />
+                         </motion.div>
                       </div>
                     </motion.div>
                   )}
