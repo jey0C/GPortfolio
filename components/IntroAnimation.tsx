@@ -10,9 +10,9 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
 
   useEffect(() => {
     // Timeline sequence
-    const timer1 = setTimeout(() => setPhase('filling'), 1800); // Start filling
-    const timer2 = setTimeout(() => setPhase('exit'), 3500);    // Start exit
-    const timer3 = setTimeout(onComplete, 4300);                // Unmount
+    const timer1 = setTimeout(() => setPhase('filling'), 1500); // Start filling
+    const timer2 = setTimeout(() => setPhase('exit'), 3800);    // Start exit
+    const timer3 = setTimeout(onComplete, 4600);                // Unmount
 
     return () => {
       clearTimeout(timer1);
@@ -22,13 +22,13 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   }, [onComplete]);
 
   // Design Constants
-  const strokeWidth = 38; // Thicker bold strokes
-  const radius = 32;      // Radius for curves
-  const centerY = 75;     // Optical center Y
-  const xHeightTop = centerY - radius; // 43
-  const baseline = centerY + radius;   // 107
+  const strokeWidth = 38; 
+  const radius = 32;      
+  const centerY = 75;     
+  const xHeightTop = centerY - radius; 
+  const baseline = centerY + radius;   
   
-  // X Positions
+  // Positions
   const g_center_x = 75;
   const i_x = 160;
   const o_center_x = 245;
@@ -40,95 +40,110 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
     o: '#10b981', // emerald-500
   };
 
-  const drawTransition = { duration: 1.2, ease: "easeInOut" as const };
-  const colorTransition = { duration: 1.0, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
+  // Helper to generate circle path data (starts top, goes clockwise)
+  const getCirclePath = (cx: number, cy: number, r: number) => {
+    return `M ${cx} ${cy - r} A ${r} ${r} 0 1 1 ${cx} ${cy + r} A ${r} ${r} 0 1 1 ${cx} ${cy - r}`;
+  };
 
-  // Helper to render paths (White Base + Colored Overlay)
-  const RenderPath = ({ 
+  // Path Definitions
+  const gCirclePath = getCirclePath(g_center_x, centerY, radius);
+  // Tail: Starts top of x-height, goes down, curves left
+  const gTailPath = `M ${g_center_x + radius} ${xHeightTop} L ${g_center_x + radius} ${baseline + 10} A ${radius} ${radius} 0 0 1 ${g_center_x} ${baseline + radius + 10}`;
+  const iStemPath = `M ${i_x} ${xHeightTop} L ${i_x} ${baseline}`;
+  const oCirclePath = getCirclePath(o_center_x, centerY, radius);
+
+  // Transitions
+  const drawTransition = { duration: 1.0, ease: "easeInOut" as const };
+  const traceTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
+
+  /**
+   * TraceablePath Component
+   * Renders the white base, the colored stroke, and the "bead" tracer.
+   */
+  const TraceablePath = ({ 
     d, 
     color, 
-    isDot = false, 
-    cx, cy, r, // for circles/dots
     customDelay = 0 
   }: { 
-    d?: string, 
+    d: string, 
     color: string, 
-    isDot?: boolean, 
-    cx?: number, cy?: number, r?: number,
     customDelay?: number 
   }) => {
     return (
       <>
-        {/* Base Layer (White) */}
-        {isDot ? (
-           <motion.circle
-             cx={cx} cy={cy} r={r}
-             fill="white"
-             initial={{ scale: 0 }}
-             animate={{ scale: 1 }}
-             transition={drawTransition}
-           />
-        ) : d ? (
+        {/* 1. Base Layer (White) - Draws first */}
+        <motion.path
+          d={d}
+          stroke="white"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="transparent"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={drawTransition}
+        />
+
+        {/* 2. Color Layer (Overlay) - Follows the tracer */}
+        {phase !== 'drawing' && (
           <motion.path
             d={d}
-            stroke="white"
+            stroke={color}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
             fill="transparent"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={drawTransition}
+            transition={{ ...traceTransition, delay: customDelay }}
           />
-        ) : (
-           <motion.circle
-             cx={cx} cy={cy} r={r}
-             stroke="white"
-             strokeWidth={strokeWidth}
-             fill="transparent"
-             initial={{ pathLength: 0, rotate: -90 }}
-             animate={{ pathLength: 1 }}
-             transition={drawTransition}
-           />
         )}
 
-        {/* Color Layer (Overlay) - Only renders during/after filling phase */}
+        {/* 3. The Tracer Bead - Moves along the path */}
         {phase !== 'drawing' && (
-          isDot ? (
-             <motion.circle
-               cx={cx} cy={cy} r={r}
-               fill={color}
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ ...colorTransition, delay: customDelay }}
-             />
-          ) : d ? (
-            <motion.path
-              d={d}
-              stroke={color}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="transparent"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ ...colorTransition, delay: customDelay }}
-            />
-          ) : (
-             <motion.circle
-               cx={cx} cy={cy} r={r}
-               stroke={color}
-               strokeWidth={strokeWidth}
-               fill="transparent"
-               initial={{ pathLength: 0, rotate: -90 }}
-               animate={{ pathLength: 1 }}
-               transition={{ ...colorTransition, delay: customDelay }}
-             />
-          )
+          <motion.circle
+            r={6} // Bead size
+            fill="white"
+            initial={{ offsetDistance: "0%", opacity: 1 }}
+            animate={{ offsetDistance: "100%", opacity: 0 }}
+            transition={{ 
+              offsetDistance: { ...traceTransition, delay: customDelay },
+              opacity: { duration: 0.2, delay: customDelay + traceTransition.duration - 0.2 } // Fade out at end
+            }}
+            style={{
+              offsetPath: `path("${d}")`,
+              // @ts-ignore - offsetPath type defs can be tricky in some react versions
+              offsetRotate: "0deg",
+            }}
+          />
         )}
       </>
     );
   };
+
+  /**
+   * Simple Dot Component (Tracer doesn't look good on a dot, just pop it)
+   */
+  const Dot = ({ cx, cy, color, customDelay }: { cx: number, cy: number, color: string, customDelay: number }) => (
+    <>
+      <motion.circle
+        cx={cx} cy={cy} r={strokeWidth / 2}
+        fill="white"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={drawTransition}
+      />
+      {phase !== 'drawing' && (
+        <motion.circle
+          cx={cx} cy={cy} r={strokeWidth / 2}
+          fill={color}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ ...traceTransition, delay: customDelay, type: "spring" }}
+        />
+      )}
+    </>
+  );
 
   return (
     <AnimatePresence>
@@ -149,45 +164,19 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
               
               {/* LETTER G */}
               <motion.g>
-                {/* 1. Circle Part */}
-                <RenderPath 
-                   cx={g_center_x} cy={centerY} r={radius} 
-                   color={colors.g} 
-                   customDelay={0}
-                />
-                
-                {/* 2. Tail Part */}
-                <RenderPath 
-                  d={`M ${g_center_x + radius} ${xHeightTop} L ${g_center_x + radius} ${baseline + 10} A ${radius} ${radius} 0 0 1 ${g_center_x} ${baseline + radius + 10}`}
-                  color={colors.g}
-                  customDelay={0.1}
-                />
+                <TraceablePath d={gCirclePath} color={colors.g} customDelay={0} />
+                <TraceablePath d={gTailPath} color={colors.g} customDelay={0.4} />
               </motion.g>
 
               {/* LETTER I */}
               <motion.g>
-                {/* Stem */}
-                <RenderPath 
-                  d={`M ${i_x} ${xHeightTop} L ${i_x} ${baseline}`}
-                  color={colors.i}
-                  customDelay={0.2}
-                />
-                {/* Dot (using circle radius = strokeWidth/2 roughly to match width) */}
-                <RenderPath 
-                  isDot
-                  cx={i_x} cy={xHeightTop - radius} r={strokeWidth / 2}
-                  color={colors.i}
-                  customDelay={0.3}
-                />
+                <TraceablePath d={iStemPath} color={colors.i} customDelay={0.6} />
+                <Dot cx={i_x} cy={xHeightTop - radius} color={colors.i} customDelay={0.7} />
               </motion.g>
 
               {/* LETTER O */}
               <motion.g>
-                 <RenderPath 
-                   cx={o_center_x} cy={centerY} r={radius} 
-                   color={colors.o}
-                   customDelay={0.3}
-                />
+                 <TraceablePath d={oCirclePath} color={colors.o} customDelay={0.8} />
               </motion.g>
 
             </svg>
