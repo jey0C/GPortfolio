@@ -5,7 +5,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'drumxroll',
     title: 'DrumXRoll',
-    logo: '/assets/images/DXR_logo.png', // Added logo for header
+    logo: '/assets/images/DXR_logo.png',
     oneLiner: 'Teaching drum improvisation through embodied XR interaction.',
     tags: ['XR', 'Unity', 'C#', 'HCI Research'],
     type: 'flagship',
@@ -22,12 +22,11 @@ export const PROJECTS: Project[] = [
       people: {
         title: "Designing With Drummers",
         subtitle: "Human-centered design and co-creation",
-        // Removed logo property from here
+        // Logo removed from here as requested
         content: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
             "Before building the system, we worked directly with drummers to understand how timing, feel, and coordination are learned—not just practiced."
           ),
-          // Changed grid to single column (full width) for wider insights card
           React.createElement("div", { className: "mt-8 w-full" },
             React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
               React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "Co-Design Insights"),
@@ -40,7 +39,6 @@ export const PROJECTS: Project[] = [
             )
           )
         ),
-        // Local images
         images: [
            "/assets/images/DXR_workshop1.jpg", 
            "/assets/images/DXR_workshop2.jpg",
@@ -113,7 +111,7 @@ export const PROJECTS: Project[] = [
         ]
       },
 
-      // 6. TECH (Mapped to solution for fallback, but used specifically in custom layout)
+      // 6. TECH
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "mb-4" }, 
            "If it didn’t feel musical, it wasn’t acceptable."
