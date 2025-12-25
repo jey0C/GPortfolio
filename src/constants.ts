@@ -1,27 +1,156 @@
-import { Project } from './types';
+import React from 'react';
+import { Project, NavItem } from './types';
 
 export const PROJECTS: Project[] = [
   {
     id: 'drumxroll',
     title: 'DrumXRoll',
-    oneLiner: 'An immersive XR rhythmic experience bridging physical gesture and digital sound.',
-    tags: ['XR', 'Unity', 'C#', 'Interaction Design'],
+    oneLiner: 'Teaching drum improvisation through embodied XR interaction.',
+    tags: ['XR', 'Unity', 'C#', 'HCI Research'],
     type: 'flagship',
     image: '/assets/images/DXR_projectcard.jpg',
     gif: '/assets/demos/DXR_projectcard.gif',
-    hoverText: 'Built from my love for music — and the joy of learning it',
-    description: 'A VR drumming system that uses haptic feedback and spatial audio to create a tangible musical instrument in a virtual space.',
+    hoverText: 'Built from my love for drums — and the joy of learning it',
+    description: 'DrumXRoll is a VR drumming system that combines a real electronic drum kit with XR visuals, helping drummers experience improvisation—not just practice patterns.',
     links: {
       demo: '#',
       github: '#',
     },
     content: {
-      context: 'Developed as a capstone exploration into embodied interaction, DrumXRoll challenges the weightlessness of VR by introducing rhythmic friction.',
-      problem: 'Most VR music apps feel like tapping glass—there is no sense of impact or rebound. Musicians rely on tactile feedback to keep time, which digital interfaces often lack.',
-      solution: 'I engineered a custom physics-based rebound system in Unity that predicts stick velocity and triggers haptic pulses 15ms before visual contact, simulating the sensation of hitting a taut membrane.',
-      techStack: ['Unity 3D', 'C#', 'SteamVR SDK', 'FMOD Audio'],
-      challenges: 'Optimizing the audio latency pipeline to be under 10ms to ensure the drumming felt rhythmic and responsive, not sluggish.',
-      learnings: 'The importance of "phantom haptics"—using audio and visual cues to trick the brain into feeling weight that isn\'t there.',
+      // 2. PEOPLE
+      people: {
+        title: "Designing With Drummers",
+        subtitle: "Human-centered design and co-creation",
+        logo: "https://placehold.co/400x120/292524/FFFFFF?text=DrumXRoll", // Wide aspect ratio placeholder
+        content: React.createElement(React.Fragment, null,
+          React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
+            "Improvisation is physical. Before building the system, we worked directly with drummers to understand how timing, feel, and coordination are learned—not just practiced."
+          ),
+          // Changed grid to single column (full width) for wider insights card
+          React.createElement("div", { className: "mt-8 w-full" },
+            React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "Co-Design Insights"),
+              React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
+                React.createElement("li", null, "Progressive limb independence felt most natural"),
+                React.createElement("li", null, "Pop grooves supported creative flexibility"),
+                React.createElement("li", null, "Visual overload breaks immersion quickly"),
+                React.createElement("li", null, "Customization is essential")
+              )
+            )
+          )
+        ),
+        // Added 3rd image placeholder
+        images: [
+           "https://placehold.co/600x400/292524/FFFFFF?text=Workshop+1", 
+           "https://placehold.co/600x400/292524/FFFFFF?text=Sketches",
+           "https://placehold.co/600x400/292524/FFFFFF?text=Prototyping"
+        ]
+      },
+
+      // 3. CONTEXT -> CHALLENGE maps to 'problem'
+      problem: React.createElement(React.Fragment, null,
+        React.createElement("p", { className: "mb-4 text-xl font-medium text-stone-800 dark:text-stone-200" }, 
+          "Improvisation depends on feel, timing, and coordination across the body."
+        ),
+        React.createElement("p", { className: "mb-4" }, 
+          "Traditional tools are excellent for accuracy, but fall short for embodied musical flow."
+        ),
+        React.createElement("p", { className: "mb-4" }, 
+          "In XR, even small delays or unclear feedback can break immersion. If the system feels off, it feels like air-drumming. The challenge wasn’t just technical — it was experiential."
+        )
+      ),
+
+      // 4. SYSTEM
+      system: {
+        title: "A Hybrid XR Instrument",
+        description: React.createElement(React.Fragment, null,
+          React.createElement("p", { className: "mb-6" }, 
+            "DrumXRoll is a hybrid XR instrument that augments a real electronic drum kit instead of replacing it."
+          ),
+          React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
+            React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Real electronic drum kit"
+            ),
+            React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "VR headset"
+            ),
+            React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500" }), "Piano-roll-inspired rhythmic visualization"
+            )
+          ),
+          React.createElement("blockquote", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-xl italic text-stone-700 dark:text-stone-300 font-serif" }, 
+            "“Instead of reading notation, drummers play into falling visual cues that reinforce timing and musical flow.”"
+          )
+        ),
+        image: "https://placehold.co/800x600/292524/FFFFFF?text=System+Diagram"
+      },
+
+      // 5. LEARNING MODES
+      modes: {
+        title: "Learning Through Play and Constraint",
+        items: [
+          {
+            title: "Watch & Listen",
+            subtitle: "Internalize timing and structure",
+            description: "Users observe the visual cues falling onto the drums to understand the rhythm before playing."
+          },
+          {
+            title: "Try Yourself",
+            subtitle: "Real-time feedback loop",
+            description: "Play along with the system. Visual and audio feedback confirms accuracy instantly."
+          },
+          {
+            title: "Compose on the Fly",
+            subtitle: "Call and response",
+            description: "Take turns improvising with the system, filling in the gaps left by the backing track."
+          },
+          {
+            title: "Constrain & Create",
+            subtitle: "Sparking creativity",
+            description: "Improvise under limitations. Constraint-led learning consistently encouraged exploration over repetition."
+          }
+        ]
+      },
+
+      // 6. TECH (Mapped to solution for fallback, but used specifically in custom layout)
+      solution: React.createElement(React.Fragment, null,
+         React.createElement("p", { className: "mb-4" }, 
+           "If it didn’t feel musical, it wasn’t acceptable."
+         ),
+         React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300" },
+           React.createElement("li", null, "Unity (C#) modular real-time pipeline"),
+           React.createElement("li", null, "Low-latency MIDI input (Alesis Nitro) with tight sync"),
+           React.createElement("li", null, "JSON-based piano-roll mappings for fast iteration"),
+           React.createElement("li", null, "Separate managers for rolls, audio, and lesson logic")
+         )
+      ),
+      techStack: ['Unity', 'C#', 'MIDI', 'VR', 'HCI'],
+
+      // 7. PROOF
+      results: {
+        title: "Pilot Study & Feedback",
+        content: React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4" },
+           React.createElement("div", { className: "bg-stone-50 dark:bg-stone-900 p-4 rounded-lg" },
+              React.createElement("h5", { className: "font-bold mb-1" }, "Instruments"),
+              React.createElement("p", { className: "text-sm text-stone-500" }, "NASA-TLX, UEQ-S, CSI")
+           ),
+           React.createElement("div", { className: "bg-stone-50 dark:bg-stone-900 p-4 rounded-lg" },
+              React.createElement("h5", { className: "font-bold mb-1" }, "Results"),
+              React.createElement("ul", { className: "text-sm text-stone-500 list-disc pl-4" },
+                React.createElement("li", null, "Low frustration, moderate demand"),
+                React.createElement("li", null, "Strong engagement metrics"),
+                React.createElement("li", null, "Self-paced repetition boost")
+              )
+           )
+        )
+      },
+
+      // 8. IMPACT
+      impact: React.createElement(React.Fragment, null,
+        React.createElement("p", { className: "text-xl md:text-2xl font-medium leading-relaxed" }, 
+          "DrumXRoll sits at the intersection of real-time systems, embodied interaction, and creative learning tools. It pushed our team to design not just for correctness, but for how learning feels in the body."
+        )
+      )
     }
   },
   {
@@ -106,6 +235,4 @@ export const PLAY_ITEMS = [
   }
 ];
 
-// Placeholder for Resume URL.
-// Replace '#' with your actual PDF URL.
-export const RESUME_URL = "#";
+export const RESUME_URL = "/assets/docs/resume.pdf";

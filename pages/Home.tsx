@@ -195,7 +195,7 @@ const Home: React.FC = () => {
                   variants={stickerVariants}
                   custom={-5} 
                 >
-                  <span className="font-mono text-xs font-bold uppercase tracking-tighter">My interests...</span>
+                  <span className="font-mono text-xs font-bold uppercase tracking-tighter">I like..</span>
                 </motion.div>
 
                 {/* Sticker 1: Fashion */}

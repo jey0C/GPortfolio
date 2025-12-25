@@ -53,8 +53,8 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   const oCirclePath = getCirclePath(o_center_x, centerY, radius);
 
   // Transitions
-  const baseTransition = { duration: 0.8, ease: "easeOut" };
-  const traceTransition = { duration: 2.0, ease: "easeInOut" }; // Prolonged
+  const baseTransition = { duration: 0.8, ease: "easeOut" as const };
+  const traceTransition = { duration: 2.0, ease: "easeInOut" as const }; // Prolonged
 
   /**
    * TraceablePath Component

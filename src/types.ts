@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface Project {
   id: string;
   title: string;
@@ -16,13 +18,37 @@ export interface Project {
 }
 
 export interface ProjectContent {
-  context: string;
-  problem: string;
-  solution: string;
+  // Standard fields (Legacy/Generic)
+  context?: ReactNode;
+  problem?: ReactNode;
+  solution?: ReactNode;
   techStack: string[];
-  challenges: string;
-  learnings: string;
+  challenges?: string;
+  learnings?: ReactNode;
   images?: string[];
+
+  // New Structured Fields (Custom Layouts)
+  people?: {
+    title: string;
+    subtitle: string;
+    logo?: string; // Added logo field
+    content: ReactNode;
+    images?: string[];
+  };
+  system?: {
+    title: string;
+    description: ReactNode;
+    image?: string;
+  };
+  modes?: {
+    title: string;
+    items: { title: string; subtitle: string; description: string }[];
+  };
+  results?: {
+    title: string;
+    content: ReactNode;
+  };
+  impact?: ReactNode; // "Why it matters"
 }
 
 export interface NavItem {
