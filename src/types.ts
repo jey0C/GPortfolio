@@ -5,6 +5,8 @@ export interface Project {
   tags: string[];
   type: 'flagship' | 'standard';
   image: string;
+  gif?: string;        // Optional GIF for hover state
+  hoverText?: string;  // Optional text for popout overlay
   description: string; // Short description for cards
   content?: ProjectContent; // Deep dive content
   links?: {

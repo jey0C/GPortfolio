@@ -7,7 +7,9 @@ export const PROJECTS: Project[] = [
     oneLiner: 'An immersive XR rhythmic experience bridging physical gesture and digital sound.',
     tags: ['XR', 'Unity', 'C#', 'Interaction Design'],
     type: 'flagship',
-    image: 'https://picsum.photos/800/600?random=1',
+    image: '/assets/images/DXR_projectcard.jpg',
+    gif: '/assets/demos/DXR_projectcard.gif',
+    hoverText: 'Built from my love for music — and the joy of learning it',
     description: 'A VR drumming system that uses haptic feedback and spatial audio to create a tangible musical instrument in a virtual space.',
     links: {
       demo: '#',
@@ -28,7 +30,9 @@ export const PROJECTS: Project[] = [
     oneLiner: 'A data-driven generative art landscape responsive to real-time environmental APIs.',
     tags: ['WebGL', 'Three.js', 'React', 'Data Viz'],
     type: 'flagship',
-    image: 'https://picsum.photos/800/600?random=2',
+    image: '/assets/images/EBL_projectcard.jpg',
+    gif: '/assets/demos/EBL_projectcard.gif',
+    hoverText: 'Because I love art — and self-reflection.',
     description: 'An interactive WebGL world that changes its visual mood based on live global temperature and wind data.',
     links: {
       demo: '#',
@@ -103,5 +107,5 @@ export const PLAY_ITEMS = [
 ];
 
 // Placeholder for Resume URL.
-// Replace '#' with your actual PDF URL (e.g., hosted on S3, Google Drive, or local public folder) when ready.
+// Replace '#' with your actual PDF URL.
 export const RESUME_URL = "#";

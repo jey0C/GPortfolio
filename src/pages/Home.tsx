@@ -266,10 +266,7 @@ const Home: React.FC = () => {
                 I’m interested in how technical foundations and interface design come together in real products.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}>
-                  Selected Work
-                </Button>
-                <Button variant="secondary" href={RESUME_URL} external>
+                <Button variant="white" href={RESUME_URL} external>
                   Resume / CV
                 </Button>
               </div>

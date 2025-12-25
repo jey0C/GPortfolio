@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
 
 interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'white';
   href?: string;
   external?: boolean;
   children?: React.ReactNode;
@@ -24,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
     primary: "bg-stone-900 text-stone-50 hover:bg-stone-800 dark:bg-stone-50 dark:text-stone-900 dark:hover:bg-stone-200",
     secondary: "bg-stone-200 text-stone-800 hover:bg-stone-300 dark:bg-stone-800 dark:text-stone-200 dark:hover:bg-stone-700",
     ghost: "bg-transparent text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-stone-400 dark:hover:text-stone-100 dark:hover:bg-stone-800 px-4",
+    white: "bg-white text-stone-900 border border-stone-200 shadow-sm hover:bg-stone-50 hover:shadow-md dark:bg-stone-800 dark:text-stone-100 dark:border-stone-700 dark:hover:bg-stone-700 active:scale-95 px-6",
   };
 
   const finalClassName = `${baseStyle} ${variants[variant]} ${className}`;

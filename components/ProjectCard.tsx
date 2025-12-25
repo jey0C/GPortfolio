@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Project } from '../types';
 import { ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ProjectCardProps {
   project: Project;
@@ -10,6 +10,8 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = false }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -18,19 +20,56 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = false }) 
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="group block"
     >
-      {/* Image Container */}
-      <Link 
-        to={`/project/${project.id}`} 
-        className="block overflow-hidden bg-stone-200 dark:bg-stone-800 rounded-xl mb-6 relative aspect-video shadow-sm"
+      {/* Image Container with Hover Logic */}
+      <div 
+        className="relative mb-6"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <img 
-          src={project.image} 
-          alt={project.title} 
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-white/5 transition-colors duration-500" />
-      </Link>
+        <Link 
+          to={`/project/${project.id}`} 
+          className="block overflow-hidden bg-stone-200 dark:bg-stone-800 rounded-xl relative aspect-video shadow-sm"
+        >
+          {/* Static Image */}
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 relative z-10"
+            loading="lazy"
+          />
+
+          {/* GIF Overlay (Fades in on hover if available) */}
+          {project.gif && (
+            <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: isHovered ? 1 : 0 }}
+               transition={{ duration: 0.3 }}
+               className="absolute inset-0 z-20 bg-stone-200 dark:bg-stone-800"
+            >
+              <img src={project.gif} alt={`${project.title} Preview`} className="w-full h-full object-cover" />
+            </motion.div>
+          )}
+
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-white/5 transition-colors duration-500 z-30" />
+        </Link>
+
+        {/* Hover Popout Text Overlay */}
+        <AnimatePresence>
+          {isHovered && project.hoverText && (
+             <motion.div
+               initial={{ opacity: 0, y: 10, scale: 0.95 }}
+               animate={{ opacity: 1, y: 0, scale: 1 }}
+               exit={{ opacity: 0, y: 10, scale: 0.95 }}
+               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+               className="absolute bottom-4 left-4 right-4 md:left-8 md:right-8 p-4 bg-white/95 dark:bg-stone-900/95 backdrop-blur-md rounded-xl border border-stone-200 dark:border-stone-700 shadow-xl z-40 pointer-events-none"
+             >
+               <p className="font-mono text-xs md:text-sm font-bold text-stone-800 dark:text-stone-100 text-center leading-tight">
+                  {project.hoverText}
+               </p>
+             </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Content */}
       <div className="flex flex-col gap-3">
