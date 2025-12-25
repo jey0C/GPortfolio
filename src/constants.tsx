@@ -5,6 +5,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'drumxroll',
     title: 'DrumXRoll',
+    logo: '/assets/images/DXR_logo.png', // Added logo for header
     oneLiner: 'Teaching drum improvisation through embodied XR interaction.',
     tags: ['XR', 'Unity', 'C#', 'HCI Research'],
     type: 'flagship',
@@ -21,7 +22,7 @@ export const PROJECTS: Project[] = [
       people: {
         title: "Designing With Drummers",
         subtitle: "Human-centered design and co-creation",
-        logo: "/assets/images/DXR_logo.png",
+        // Removed logo property from here
         content: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
             "Before building the system, we worked directly with drummers to understand how timing, feel, and coordination are learned—not just practiced."

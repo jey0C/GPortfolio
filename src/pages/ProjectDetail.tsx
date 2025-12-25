@@ -41,7 +41,13 @@ const ProjectDetail: React.FC = () => {
               ))}
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-50 mb-6">{project.title}</h1>
+            {/* Conditionally render Logo or Title */}
+            {project.logo ? (
+              <img src={project.logo} alt={project.title} className="h-16 md:h-24 w-auto object-contain mb-6 origin-left" />
+            ) : (
+              <h1 className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-50 mb-6">{project.title}</h1>
+            )}
+
             <h2 className="text-xl md:text-2xl font-medium text-stone-500 dark:text-stone-400 mb-6">{project.oneLiner}</h2>
             <p className="text-lg text-stone-700 dark:text-stone-300 leading-relaxed mb-8 max-w-xl">
               {project.description}

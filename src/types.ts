@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 export interface Project {
   id: string;
   title: string;
+  logo?: string;       // Optional logo to replace text title
   oneLiner: string;
   tags: string[];
   type: 'flagship' | 'standard';
@@ -31,7 +32,7 @@ export interface ProjectContent {
   people?: {
     title: string;
     subtitle: string;
-    logo?: string; // Added logo field
+    logo?: string; 
     content: ReactNode;
     images?: string[];
   };
