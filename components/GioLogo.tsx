@@ -13,9 +13,9 @@ const GioLogo: React.FC<GioLogoProps> = ({ className = "h-8" }) => {
   const baseline = centerY + radius;   
   
   // Positions
-  const g_center_x = 75;
+  const g_center_x = 95;
   const i_x = 160;
-  const o_center_x = 245;
+  const o_center_x = 225;
 
   // Colors
   const colors = {
