@@ -39,6 +39,7 @@ export const PROJECTS: Project[] = [
             )
           )
         ),
+        // Local images
         images: [
            "/assets/images/DXR_workshop1.jpg", 
            "/assets/images/DXR_workshop2.jpg",
@@ -111,7 +112,7 @@ export const PROJECTS: Project[] = [
         ]
       },
 
-      // 6. TECH
+      // 6. TECH (Mapped to solution for fallback, but used specifically in custom layout)
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "mb-4" }, 
            "If it didn’t feel musical, it wasn’t acceptable."

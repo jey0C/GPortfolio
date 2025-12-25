@@ -21,10 +21,10 @@ export const PROJECTS: Project[] = [
       people: {
         title: "Designing With Drummers",
         subtitle: "Human-centered design and co-creation",
-        logo: "https://placehold.co/400x120/292524/FFFFFF?text=DrumXRoll", // Wide aspect ratio placeholder
+        logo: "/assets/images/DXR_logo.png",
         content: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
-            "Improvisation is physical. Before building the system, we worked directly with drummers to understand how timing, feel, and coordination are learned—not just practiced."
+            "Before building the system, we worked directly with drummers to understand how timing, feel, and coordination are learned—not just practiced."
           ),
           // Changed grid to single column (full width) for wider insights card
           React.createElement("div", { className: "mt-8 w-full" },
@@ -39,11 +39,11 @@ export const PROJECTS: Project[] = [
             )
           )
         ),
-        // Added 3rd image placeholder
+        // Local images
         images: [
-           "https://placehold.co/600x400/292524/FFFFFF?text=Workshop+1", 
-           "https://placehold.co/600x400/292524/FFFFFF?text=Sketches",
-           "https://placehold.co/600x400/292524/FFFFFF?text=Prototyping"
+           "/assets/images/DXR_workshop1.jpg", 
+           "/assets/images/DXR_workshop2.jpg",
+           "/assets/images/DXR_workshop3.jpg"
         ]
       },
 

@@ -39,6 +39,7 @@ export const PROJECTS: Project[] = [
             )
           )
         ),
+        // Local images
         images: [
            "/assets/images/DXR_workshop1.jpg", 
            "/assets/images/DXR_workshop2.jpg",
