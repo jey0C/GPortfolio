@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
           "Traditional tools are excellent for accuracy, but fall short for embodied musical flow."
         ),
         React.createElement("p", { className: "mb-4" }, 
-          "In XR, even small delays or unclear feedback can break immersion. If the system feels off, it feels like air-drumming. The challenge wasn’t just technical — it was experiential."
+          "In XR, even small delays or unclear feedback can break immersion. If can break creativity and flow. The challenge wasn’t just technical — it was experiential."
         )
       ),
 

@@ -22,7 +22,6 @@ export const PROJECTS: Project[] = [
       people: {
         title: "Designing With Drummers",
         subtitle: "Human-centered design and co-creation",
-        // Logo removed from here as requested
         content: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
             "Before building the system, we worked directly with drummers to understand how timing, feel, and coordination are learned—not just practiced."
@@ -48,14 +47,21 @@ export const PROJECTS: Project[] = [
 
       // 3. CONTEXT -> CHALLENGE maps to 'problem'
       problem: React.createElement(React.Fragment, null,
-        React.createElement("p", { className: "mb-4 text-xl font-medium text-stone-800 dark:text-stone-200" }, 
-          "Improvisation depends on feel, timing, and coordination across the body."
+        // Big Statement
+        React.createElement("p", { className: "text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-50 mb-8 leading-tight" }, 
+          "Improvisation depends on feel — not just accuracy."
         ),
-        React.createElement("p", { className: "mb-4" }, 
-          "Traditional tools are excellent for accuracy, but fall short for embodied musical flow."
+        // Supporting Text
+        React.createElement("div", { className: "text-lg text-stone-600 dark:text-stone-300 space-y-6 leading-relaxed mb-12" },
+            React.createElement("p", null, "Timing, coordination, and full-body awareness shape how rhythm is experienced."),
+            React.createElement("p", null, "Traditional tools are precise, but they fall short when it comes to embodied musical flow."),
+            React.createElement("p", null, "In XR, even small delays or unclear feedback can break immersion. If the system feels off, it feels like air-drumming.")
         ),
-        React.createElement("p", { className: "mb-4" }, 
-          "In XR, even small delays or unclear feedback can break immersion. If the system feels off, it feels like air-drumming. The challenge wasn’t just technical — it was experiential."
+        // Emotional Anchor / Insight
+        React.createElement("div", { className: "border-l-4 border-stone-300 dark:border-stone-700 pl-6 py-1" },
+            React.createElement("p", { className: "text-xl md:text-2xl font-medium text-stone-800 dark:text-stone-200" }, 
+              "The challenge wasn’t just technical — it was experiential."
+            )
         )
       ),
 
@@ -64,24 +70,30 @@ export const PROJECTS: Project[] = [
         title: "A Hybrid XR Instrument",
         description: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6" }, 
-            "DrumXRoll is a hybrid XR instrument that augments a real electronic drum kit instead of replacing it."
+            "DrumXRoll augments a real electronic drum kit with XR-based visual feedback."
+          ),
+          React.createElement("p", { className: "mb-6" }, 
+            "The physical instrument remains central, while XR is used to externalize timing and rhythmic structure during play."
           ),
           React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Real electronic drum kit"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Physical electronic drum kit"
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "VR headset"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "XR headset"
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500" }), "Piano-roll-inspired rhythmic visualization"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500" }), "Real-time rhythmic visualization"
             )
           ),
-          React.createElement("blockquote", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-xl italic text-stone-700 dark:text-stone-300 font-serif" }, 
-            "“Instead of reading notation, drummers play into falling visual cues that reinforce timing and musical flow.”"
+          React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
+            "DrumXRoll adds a visual layer to drumming without replacing existing instruments or techniques."
           )
         ),
-        image: "https://placehold.co/800x600/292524/FFFFFF?text=System+Diagram"
+        images: [
+           "/assets/images/DXR_physical.jpg",
+           "/assets/images/DXR_XRview.jpg"
+        ]
       },
 
       // 5. LEARNING MODES
@@ -111,7 +123,7 @@ export const PROJECTS: Project[] = [
         ]
       },
 
-      // 6. TECH
+      // 6. TECH (Mapped to solution for fallback, but used specifically in custom layout)
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "mb-4" }, 
            "If it didn’t feel musical, it wasn’t acceptable."

@@ -40,6 +40,7 @@ export interface ProjectContent {
     title: string;
     description: ReactNode;
     image?: string;
+    images?: string[]; // Added support for multiple system images
   };
   modes?: {
     title: string;

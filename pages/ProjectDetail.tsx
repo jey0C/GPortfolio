@@ -121,11 +121,11 @@ const ProjectDetail: React.FC = () => {
         </section>
       )}
 
-      {/* 3. CHALLENGE (Narrow measure) */}
+      {/* 3. CHALLENGE */}
       {project.content?.problem && (
-         <section className="mb-24 max-w-2xl mx-auto text-center md:text-left">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-6 md:mb-8 text-center">The Challenge</h3>
-            <div className="text-xl md:text-2xl leading-relaxed font-light text-stone-800 dark:text-stone-200">
+         <section className="mb-24 max-w-3xl mx-auto">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-8">The Challenge</h3>
+            <div>
                {project.content.problem}
             </div>
          </section>
@@ -135,10 +135,21 @@ const ProjectDetail: React.FC = () => {
       {project.content?.system && (
          <section className="mb-24">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-               <div className="order-2 md:order-1 bg-white dark:bg-stone-800 p-2 rounded-xl border border-stone-200 dark:border-stone-700 shadow-xl">
-                  {project.content.system.image && (
-                     <img src={project.content.system.image} alt="System Diagram" className="w-full h-auto rounded-lg" />
-                  )}
+               <div className="order-2 md:order-1">
+                  {/* Handle multiple images */}
+                  {project.content.system.images ? (
+                      <div className="flex flex-col gap-6">
+                          {project.content.system.images.map((img, idx) => (
+                              <div key={idx} className="rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-xl">
+                                  <img src={img} alt={`System view ${idx + 1}`} className="w-full h-auto" />
+                              </div>
+                          ))}
+                      </div>
+                  ) : project.content.system.image ? (
+                     <div className="bg-white dark:bg-stone-800 p-2 rounded-xl border border-stone-200 dark:border-stone-700 shadow-xl">
+                        <img src={project.content.system.image} alt="System Diagram" className="w-full h-auto rounded-lg" />
+                     </div>
+                  ) : null}
                </div>
                <div className="order-1 md:order-2">
                   <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-6">{project.content.system.title}</h3>
