@@ -30,11 +30,11 @@ const ProjectDetail: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 items-center"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20 items-center"
       >
          {/* Text Side - Reduced from col-span-6 to col-span-5 */}
-         <div className="lg:col-span-5 flex flex-col justify-center items-start">
-            <div className="flex flex-wrap gap-2 mb-6">
+         <div className="lg:col-span-5 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
               {project.tags.map(tag => (
                 <span key={tag} className="text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 bg-stone-200 dark:bg-stone-800 px-3 py-1 rounded-full">
                   {tag}
@@ -44,7 +44,7 @@ const ProjectDetail: React.FC = () => {
 
             {/* Conditionally render Logo or Title */}
             {project.logo ? (
-              <img src={project.logo} alt={project.title} className="h-16 md:h-24 w-auto object-contain mb-6 origin-left self-start" />
+              <img src={project.logo} alt={project.title} className="h-16 md:h-24 w-auto object-contain mb-6 origin-left self-center lg:self-start" />
             ) : (
               <h1 className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-50 mb-6">{project.title}</h1>
             )}
@@ -54,7 +54,7 @@ const ProjectDetail: React.FC = () => {
               {project.description}
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center lg:justify-start">
               {project.links?.demo && (
                 <Button href={project.links.demo} external className="gap-2">
                   <Globe className="w-4 h-4" /> Live Demo
@@ -90,7 +90,7 @@ const ProjectDetail: React.FC = () => {
 
       {/* 2. PEOPLE SECTION (Modified for flexible layout) */}
       {project.content?.people && (
-        <section className="mb-24 bg-stone-100 dark:bg-stone-900/50 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+        <section className="mb-24 bg-stone-100 dark:bg-stone-900/50 rounded-2xl p-6 md:p-12 relative overflow-hidden">
            {project.content.people.featureBox ? (
              /* New Layout: Text Left, Feature Box Right, Images Below */
              <>
@@ -161,12 +161,12 @@ const ProjectDetail: React.FC = () => {
                 </div>
                 
                 {project.content.people.images && project.content.people.images.length > 0 && (
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                      {project.content.people.images.map((item, i) => {
                         const src = typeof item === 'string' ? item : item.src;
                         const caption = typeof item === 'string' ? null : item.caption;
                         return (
-                          <div key={i} className={`relative group rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
+                          <div key={i} className={`relative group rounded-lg overflow-hidden shadow-lg ${i % 2 === 1 ? 'sm:translate-y-8' : ''}`}>
                              <img src={src} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
                              {caption && (
                                <div className="absolute inset-0 bg-stone-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
@@ -222,7 +222,7 @@ const ProjectDetail: React.FC = () => {
                <div className="order-2 md:order-1">
                   {/* Handle multiple images */}
                   {project.content.system.images ? (
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {project.content.system.images.map((img, idx) => (
                               <div key={idx} className={`rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-xl ${idx === 0 ? 'border-2 border-blue-500' : idx === 1 ? 'border-2 border-pink-500' : 'border border-stone-200 dark:border-stone-700'}`}>
                                   <img src={img} alt={`System view ${idx + 1}`} className="w-full h-full object-cover aspect-[4/5]" />

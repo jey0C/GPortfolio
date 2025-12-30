@@ -268,10 +268,15 @@ export const PROJECTS: Project[] = [
           ),
           // MODIFIED: Standard white bullets
           React.createElement("ul", { className: "list-disc pl-5 space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
-            React.createElement("li", null, "Valleys suggest calm / neutral states"),
-            React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
-            React.createElement("li", null, "Plateaus signal emotional stability")
+            React.createElement("li", null, "X (time): moments accumulate into a timeline you can traverse"),
+            React.createElement("li", null, "Y (intensity): emotional weight becomes elevation"),
+            React.createElement("li", null, "Z (similarity): emotionally similar moments cluster nearer together")
           ),
+           React.createElement("ul", { className: "list-disc pl-5 space-y-1 text-stone-700 dark:text-stone-300 text-sm mb-6" },
+                React.createElement("li", null, "Valleys suggest calm / neutral states"),
+                React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
+                React.createElement("li", null, "Plateaus signal emotional stability")
+            ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
@@ -566,7 +571,6 @@ export const PROJECTS: Project[] = [
 export const NAV_ITEMS = [
   { label: 'Work', path: '/' },
   { label: 'About', path: '/about' },
-  { label: 'Play', path: '/play' },
 ];
 
 export const PLAY_ITEMS = [

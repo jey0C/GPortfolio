@@ -79,6 +79,13 @@ const Layout: React.FC = () => {
               Resume
             </a>
             
+            <a 
+              href="mailto:hello@giocruz.dev"
+              className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+            >
+              Contact
+            </a>
+
             <button
               onClick={toggleTheme}
               className="p-2 text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 transition-colors"
@@ -86,13 +93,6 @@ const Layout: React.FC = () => {
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
-
-            <a 
-              href="mailto:hello@giocruz.dev"
-              className="px-4 py-2 bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 text-sm font-medium rounded-full hover:bg-stone-700 dark:hover:bg-stone-200 transition-colors"
-            >
-              Contact
-            </a>
           </nav>
 
           {/* Mobile Menu Toggle & Theme Toggle */}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
 
-type ScribbleType = 'underline' | 'circle' | 'sparkle' | 'squiggle' | 'curved-arrow';
+type ScribbleType = 'underline' | 'circle' | 'sparkle' | 'squiggle' | 'curved-arrow' | 'long-arrow-left';
 
 interface ScribbleProps {
   type: ScribbleType;
@@ -87,6 +87,30 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
             />
           </>
         );
+      case 'long-arrow-left':
+        return (
+          <>
+            {/* Deeper curve starting right, dipping down, then pointing up-left. Stops short of buttons. */}
+            <motion.path
+              d="M 360 80 C 260 150, 160 150, 80 50"
+              stroke={color}
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+              variants={pathVariants}
+            />
+            {/* Sharper, sketched arrowhead geometry pointing towards top-left */}
+            <motion.path
+              d="M 85 75 L 78 48 L 108 55"
+              stroke={color}
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+              variants={pathVariants}
+            />
+          </>
+        );
       default:
         return null;
     }
@@ -99,6 +123,8 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
         case 'squiggle': return { viewBox: "0 0 100 30", className: "w-24 h-8" };
         case 'sparkle': return { viewBox: "0 0 30 30", className: "w-8 h-8" };
         case 'curved-arrow': return { viewBox: "0 0 50 30", className: "w-full h-full" };
+        // Wider viewbox to span the gap between columns
+        case 'long-arrow-left': return { viewBox: "0 0 400 160", className: "w-[20rem] md:w-[28rem] h-auto" };
         default: return { viewBox: "0 0 100 100", className: "" };
      }
   }
@@ -112,7 +138,7 @@ const Scribble: React.FC<ScribbleProps> = ({ type, className = '', color = 'curr
       className={`absolute pointer-events-none ${defaultClass} ${className}`}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.5 }}
     >
       {renderPath()}
     </motion.svg>

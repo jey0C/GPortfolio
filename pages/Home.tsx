@@ -243,7 +243,7 @@ const Home: React.FC = () => {
               {/* Playful element near name */}
               <div className="relative inline-block mt-2">
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-stone-900 dark:text-stone-50 mb-6 leading-[0.9] relative z-10">
-                  Gio Cruz
+                  Giovanni Cruz
                 </h1>
               </div>
 
@@ -267,7 +267,10 @@ const Home: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="white" href={RESUME_URL} external>
-                  Resume / CV
+                  Resume
+                </Button>
+                <Button href="mailto:hello@giocruz.dev">
+                  Contact
                 </Button>
               </div>
             </motion.div>
@@ -341,11 +344,12 @@ const Home: React.FC = () => {
           </section>
 
           {/* Footer Area within Scroll */}
-          <section className="pt-12 border-t border-stone-200 dark:border-stone-800">
+          <section className="pt-12 border-t border-stone-200 dark:border-stone-800 relative">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 dark:text-stone-50 mb-8">Let's build something real.</h2>
-            <div className="flex gap-4">
-              <Button href="mailto:hello@giocruz.dev">Get in Touch</Button>
-              <Button variant="ghost" href={RESUME_URL} external>View Resume PDF</Button>
+            {/* Arrow pointing back to sticky sidebar buttons */}
+            <div className="absolute -left-[5rem] lg:-left-[25rem] top-4 z-0 hidden md:block pointer-events-none">
+               {/* Positioned to point from the right column footer towards the left column sticky sidebar */}
+               <Scribble type="long-arrow-left" className="text-blue-500 dark:text-blue-400 opacity-80" delay={0.2} />
             </div>
           </section>
 
