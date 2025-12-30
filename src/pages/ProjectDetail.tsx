@@ -138,10 +138,10 @@ const ProjectDetail: React.FC = () => {
                <div className="order-2 md:order-1">
                   {/* Handle multiple images */}
                   {project.content.system.images ? (
-                      <div className="flex flex-col gap-6">
+                      <div className="grid grid-cols-2 gap-4">
                           {project.content.system.images.map((img, idx) => (
                               <div key={idx} className="rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-xl">
-                                  <img src={img} alt={`System view ${idx + 1}`} className="w-full h-auto" />
+                                  <img src={img} alt={`System view ${idx + 1}`} className="w-full h-full object-cover aspect-[4/5]" />
                               </div>
                           ))}
                       </div>
