@@ -157,24 +157,157 @@ export const PROJECTS: Project[] = [
   {
     id: 'emberlands',
     title: 'Emberlands',
-    oneLiner: 'A data-driven generative art landscape responsive to real-time environmental APIs.',
-    tags: ['WebGL', 'Three.js', 'React', 'Data Viz'],
+    oneLiner: 'Emotional data as a landscape you can explore, not analyze.',
+    tags: ['HCI', 'Data Art', 'Creative Computing', 'WebGL', 'Embodied Interaction'],
     type: 'flagship',
     image: '/assets/images/EBL_projectcard.jpg',
     gif: '/assets/demos/EBL_projectcard.gif',
-    hoverText: 'Because I love art — and self-reflection.',
-    description: 'An interactive WebGL world that changes its visual mood based on live global temperature and wind data.',
+    hoverText: 'What if feelings were a place you could visit?',
+    description: 'Emberlands is a private, web-based creative tool that transforms personal moments into a living 3D emotional terrain—designed to support reflection through spatial experience rather than journaling, metrics, or advice.',
     links: {
       demo: '#',
       github: '#',
     },
     content: {
-      context: 'A personal study on making invisible global datasets emotionally resonant through visual metaphors.',
-      problem: 'Climate data is often presented as cold charts and graphs. I wanted to create a system where users could "feel" the data through atmosphere and color.',
-      solution: 'Built a procedurally generated terrain system in Three.js. The shader uniforms are bound to a Node.js backend that fetches live weather API data, shifting the color palette from cool blues to alarming reds based on temperature anomalies.',
-      techStack: ['React', 'Three.js (R3F)', 'Node.js', 'OpenWeatherMap API', 'GLSL'],
-      challenges: 'Managing performance while rendering thousands of instanced geometry meshes for the vegetation.',
-      learnings: 'Balancing artistic intent with the chaotic nature of real-time data inputs.',
+      people: {
+        title: "Design Intent",
+        subtitle: "Philosophy & Constraints",
+        content: React.createElement(React.Fragment, null,
+          React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
+            "Emberlands was deliberately designed with strong boundaries. It is not a therapy replacement, a mood tracker, or a productivity tool. It is a private emotional archive."
+          ),
+          React.createElement("div", { className: "mt-8 w-full" },
+            React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "Defining The Space"),
+              React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
+                React.createElement("li", null, React.createElement("strong", null, "Not:"), " A dashboard, a social platform, or a place for advice."),
+                React.createElement("li", null, React.createElement("strong", null, "Is:"), " A space for slow, self-directed reflection."),
+                React.createElement("li", null, React.createElement("strong", null, "Is:"), " Emotional information treated as generative material."),
+                React.createElement("li", null, React.createElement("strong", null, "Is:"), " A system that reveals structure without judgment.")
+              )
+            )
+          )
+        ),
+        images: [
+           "/assets/images/EBL_projectcard.jpg",
+           "/assets/images/EBL_projectcard.jpg" 
+        ]
+      },
+      problem: React.createElement(React.Fragment, null,
+        React.createElement("p", { className: "text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-50 mb-8 leading-tight" }, 
+          "People experience emotions constantly, yet most tools ask for interpretation before understanding."
+        ),
+        React.createElement("div", { className: "text-lg text-stone-600 dark:text-stone-300 space-y-6 leading-relaxed mb-12" },
+            React.createElement("p", null, "Journals require sustained effort and self-analysis. Mood trackers compress emotional life into numbers and charts. Therapeutic tools are often clinical and goal-driven."),
+            React.createElement("p", null, "As a result, emotional patterns usually become visible only in hindsight—long after they’ve shaped behavior."),
+            React.createElement("p", null, "Emberlands explores a different question: ", React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "What if emotional patterns could be seen and felt before they are explained?"))
+        ),
+        React.createElement("div", { className: "border-l-4 border-stone-300 dark:border-stone-700 pl-6 py-1" },
+            React.createElement("p", { className: "text-xl md:text-2xl font-medium text-stone-800 dark:text-stone-200" }, 
+              "The goal: Reveal structure without judgment."
+            )
+        )
+      ),
+      system: {
+        title: "Emotions as Terrain",
+        description: React.createElement(React.Fragment, null,
+          React.createElement("p", { className: "mb-6" }, 
+            "At the heart of Emberlands is the emotional landscape metaphor. Instead of timelines or charts, emotional history is rendered as a navigable 3D terrain."
+          ),
+          React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
+            React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Valleys represent calm"
+            ),
+            React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-orange-500" }), "Peaks reflect intensity"
+            ),
+            React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-stone-500" }), "Plateaus indicate stability"
+            )
+          ),
+          React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
+            "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
+          )
+        ),
+        image: "/assets/images/EBL_projectcard.jpg" 
+      },
+      modes: {
+        title: "The Core Experience",
+        items: [
+          {
+            title: "Log a Moment",
+            subtitle: "Low Friction Input",
+            description: "Capture moments through short text, voice, or images without interrupting flow."
+          },
+          {
+            title: "Inference",
+            subtitle: "No Manual Labeling",
+            description: "The system extracts emotional signals automatically, removing the need to score feelings."
+          },
+          {
+            title: "Terrain Generation",
+            subtitle: "Living Landscape",
+            description: "Each entry contributes to a growing 3D emotional landscape that evolves over time."
+          },
+          {
+            title: "Discovery",
+            subtitle: "Curiosity over Evaluation",
+            description: "Navigate to notice clusters, shifts, and rhythms. Reveal structure without judgment."
+          }
+        ]
+      },
+      solution: React.createElement(React.Fragment, null,
+         React.createElement("p", { className: "text-xl font-medium text-stone-800 dark:text-stone-200 mb-8" }, 
+           "Technology serves the experience—not the other way around."
+         ),
+         React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4" }, "Technical Architecture"),
+         React.createElement("ul", { className: "list-disc pl-5 space-y-3 text-stone-700 dark:text-stone-300 leading-relaxed" },
+           React.createElement("li", null, 
+              React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Frontend"), 
+              ": React / Next.js with Three.js/WebGL for 3D rendering and D3.js for overlays."
+           ),
+           React.createElement("li", null, 
+              React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Processing"), 
+              ": NLP for emotion/theme extraction and embedding-based clustering for similarity."
+           ),
+           React.createElement("li", null, 
+              React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Privacy"), 
+              ": Encrypted storage with offline-first considerations."
+           )
+         )
+      ),
+      techStack: ['React', 'Three.js', 'WebGL', 'NLP', 'D3.js'],
+      results: {
+        title: "Privacy & Ethics",
+        content: React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
+           React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Privacy by Design"),
+              React.createElement("ul", { className: "space-y-3 text-sm text-stone-600 dark:text-stone-300" },
+                React.createElement("li", null, "Data is private by default"),
+                React.createElement("li", null, "No public sharing or social features"),
+                React.createElement("li", null, "No emotional ranking or comparison"),
+                React.createElement("li", null, "Local-first or encrypted storage options")
+              )
+           ),
+           React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "MVP Scope"),
+              React.createElement("ul", { className: "list-disc pl-4 space-y-2 text-sm text-stone-600 dark:text-stone-300" },
+                React.createElement("li", null, "Text-based logging & Basic emotion extraction"),
+                React.createElement("li", null, "Time- and intensity-based 3D landscape"),
+                React.createElement("li", null, "Simple pattern overlays"),
+                React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Excluded:"), " Social features, Advice, Gamification")
+              )
+           )
+        )
+      },
+      impact: React.createElement(React.Fragment, null,
+        React.createElement("p", { className: "text-xl md:text-2xl font-medium leading-relaxed text-stone-900 dark:text-stone-50 mb-6" }, 
+          "Emberlands explores what happens when emotional data is treated not as something to fix, optimize, or diagnose—but as something to inhabit."
+        ),
+        React.createElement("p", { className: "text-lg text-stone-600 dark:text-stone-300 leading-relaxed" }, 
+          "By turning lived experience into space, the project reframes reflection as exploration: slow, personal, and deeply human."
+        )
+      )
     }
   },
   {

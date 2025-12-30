@@ -32,7 +32,7 @@ const ProjectDetail: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 items-center"
       >
-         <div className="lg:col-span-6 flex flex-col justify-center">
+         <div className="lg:col-span-6 flex flex-col justify-center items-start">
             <div className="flex flex-wrap gap-2 mb-6">
               {project.tags.map(tag => (
                 <span key={tag} className="text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 bg-stone-200 dark:bg-stone-800 px-3 py-1 rounded-full">
@@ -43,7 +43,7 @@ const ProjectDetail: React.FC = () => {
 
             {/* Conditionally render Logo or Title */}
             {project.logo ? (
-              <img src={project.logo} alt={project.title} className="h-16 md:h-24 w-auto object-contain mb-6 origin-left" />
+              <img src={project.logo} alt={project.title} className="h-16 md:h-24 w-auto object-contain mb-6 origin-left self-start" />
             ) : (
               <h1 className="text-4xl md:text-6xl font-bold text-stone-900 dark:text-stone-50 mb-6">{project.title}</h1>
             )}
@@ -138,10 +138,10 @@ const ProjectDetail: React.FC = () => {
                <div className="order-2 md:order-1">
                   {/* Handle multiple images */}
                   {project.content.system.images ? (
-                      <div className="flex flex-col gap-6">
+                      <div className="grid grid-cols-2 gap-4">
                           {project.content.system.images.map((img, idx) => (
                               <div key={idx} className="rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-xl">
-                                  <img src={img} alt={`System view ${idx + 1}`} className="w-full h-auto" />
+                                  <img src={img} alt={`System view ${idx + 1}`} className="w-full h-full object-cover aspect-[4/5]" />
                               </div>
                           ))}
                       </div>
@@ -180,23 +180,26 @@ const ProjectDetail: React.FC = () => {
       )}
 
       {/* 6. TECH (Standard) */}
-      <section className="mb-24 grid grid-cols-1 md:grid-cols-12 gap-12">
-         <div className="md:col-span-4">
-            <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-6">Making It Feel Musical</h3>
-            <div className="flex flex-wrap gap-2">
-               {project.content?.techStack.map(tech => (
-                  <span key={tech} className="px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 rounded text-sm font-medium">{tech}</span>
-               ))}
+      <section className="mb-24">
+         <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-8">System Design</h3>
+         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div className="md:col-span-4">
+               <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-6">Making It Feel Musical</h3>
+               <div className="flex flex-wrap gap-2">
+                  {project.content?.techStack.map(tech => (
+                     <span key={tech} className="px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 rounded text-sm font-medium">{tech}</span>
+                  ))}
+               </div>
             </div>
-         </div>
-         <div className="md:col-span-8 prose prose-stone dark:prose-invert prose-lg">
-             {project.content?.solution}
+            <div className="md:col-span-8 prose prose-stone dark:prose-invert prose-lg">
+                {project.content?.solution}
+            </div>
          </div>
       </section>
 
       {/* 7. PROOF (Results) */}
       {project.content?.results && (
-         <section className="mb-24 border-t border-stone-200 dark:border-stone-800 pt-12">
+         <section className="mb-24 pt-12">
             <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-8">{project.content.results.title}</h3>
             {project.content.results.content}
          </section>
@@ -204,8 +207,11 @@ const ProjectDetail: React.FC = () => {
 
       {/* 8. IMPACT (Why It Matters) */}
       {project.content?.impact && (
-         <section className="mb-12 bg-stone-900 dark:bg-stone-100 text-stone-50 dark:text-stone-900 p-8 md:p-16 rounded-2xl text-center">
-            {project.content.impact}
+         <section className="mb-24">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-8">Reflection</h3>
+            <div className="bg-stone-50 dark:bg-stone-900/50 p-8 md:p-12 rounded-xl border-l-4 border-stone-400 dark:border-stone-600 shadow-sm">
+               {project.content.impact}
+            </div>
          </section>
       )}
 
