@@ -188,7 +188,7 @@ export const PROJECTS: Project[] = [
     logo: '/assets/images/EBL_logo.png',
     tags: ['Privacy-by-Design', 'HCI', 'Data Art', 'Creative Computing', 'WebGL', 'Embodied Interaction'],
     type: 'flagship',
-    image: '/assets/images/EBL_projectcard.jpg',
+    image: '/assets/images/EBL_projectcard.png',
     gif: '/assets/demos/EBL_projectcard.gif',
     hoverText: 'Explore your emotional history like a terrain—peaks, valleys, seasons.',
     description: 'Emberlands is a private, web-based creative tool that transforms personal moments into a living 3D emotional terrain—designed to support reflection through spatial experience rather than journaling, metrics, or advice.',
@@ -218,9 +218,9 @@ export const PROJECTS: Project[] = [
           )
         ),
         images: [
-           "/assets/images/EBL_projectcard.jpg",
-           "/assets/images/EBL_projectcard.jpg", 
-           "/assets/images/EBL_projectcard.jpg"
+           "/assets/images/EBL_workshop1.jpg",
+           "/assets/images/EBL_workshop2.jpg", 
+           "/assets/images/EBL_workshop3.jpg"
         ]
       },
 
@@ -267,7 +267,7 @@ export const PROJECTS: Project[] = [
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
         ),
-        image: "/assets/images/EBL_projectcard.jpg" 
+        image: "/assets/images/EBL_view.jpg" 
       },
 
       // 5. MODES
