@@ -37,7 +37,15 @@ export interface ProjectContent {
     subtitle: string;
     logo?: string; 
     content: ReactNode;
-    images?: string[];
+    images?: (string | { src: string; caption?: string })[]; 
+  };
+  process?: {
+    title: string;
+    items: {
+      image: string;
+      caption: string;
+      tag?: string;
+    }[];
   };
   system?: {
     title: string;

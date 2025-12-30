@@ -78,9 +78,6 @@ export const PROJECTS: Project[] = [
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
               React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "XR headset"
-            ),
-            React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500" }), "Real-time rhythmic visualization"
             )
           ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
@@ -339,7 +336,30 @@ export const PROJECTS: Project[] = [
       ),
       techStack: ['React', 'Three.js', 'WebGL', 'NLP', 'D3.js'],
 
-      // 7. RESULTS REMOVED
+      // 7. RESULTS
+      results: {
+        title: "Privacy & Ethics",
+        content: React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
+           React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Privacy by Design"),
+              React.createElement("ul", { className: "space-y-3 text-sm text-stone-600 dark:text-stone-300" },
+                React.createElement("li", null, "Data is private by default"),
+                React.createElement("li", null, "No public sharing or social features"),
+                React.createElement("li", null, "No emotional ranking or comparison"),
+                React.createElement("li", null, "Local-first or encrypted storage options")
+              )
+           ),
+           React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Pattern Discovery"),
+              React.createElement("ul", { className: "list-disc pl-4 space-y-2 text-sm text-stone-600 dark:text-stone-300" },
+                React.createElement("li", null, "Cycles and repeated emotional seasons"),
+                React.createElement("li", null, "Sudden spikes / transitions"),
+                React.createElement("li", null, "Gentle overlays + reflective prompts"),
+                React.createElement("li", null, "No prescriptions, no ranking")
+              )
+           )
+        )
+      },
 
       // 8. IMPACT
       impact: React.createElement(React.Fragment, null,
@@ -352,27 +372,199 @@ export const PROJECTS: Project[] = [
       )
     }
   },
-  {
-    id: 'ocr-pipeline',
-    title: 'Distributed OCR Pipeline',
-    oneLiner: 'High-throughput document processing system focusing on concurrency and fault tolerance.',
-    tags: ['Go', 'Docker', 'Kubernetes', 'Redis'],
-    type: 'standard',
-    image: 'https://picsum.photos/800/600?random=3',
-    description: 'A scalable backend service capable of processing 10k+ document pages per hour with 99.9% uptime.',
-    links: {
-      github: '#',
+{
+  id: 'ocr-pipeline',
+  title: 'Distributed OCR Pipeline',
+  oneLiner: 'A cross-platform OCR system using a bounded work queue, worker pool, and a framed TCP protocol.',
+  tags: ['C++20', 'Qt', 'OpenCV', 'Tesseract', 'TCP', 'Concurrency'],
+  type: 'standard',
+
+  // HERO (use the polished infographic)
+  image: '/assets/images/OCR_hero.png',
+
+  // no gif
+  hoverText: 'Backpressure + worker pools + OCR preprocessing — systems work that stays stable under load.',
+  description:
+    'A Qt desktop client batches image uploads to a multi-threaded C++ server. The server preprocesses images with OpenCV, runs Tesseract OCR, and returns OCR text + processing time per file.',
+
+  links: {
+    demo: '#',
+    github: '#',
+  },
+
+  content: {
+    // 2) OVERVIEW / WHAT I BUILT
+    people: {
+      title: "Built Like a Real System",
+      subtitle: "Client–server + backpressure + parallel workers",
+      content: React.createElement(React.Fragment, null,
+        React.createElement("p", { className: "mb-6 text-lg leading-relaxed" },
+          "I built this as a systems-first OCR pipeline: batch uploads, reliable networking, and predictable throughput. The goal wasn’t just to run OCR — it was to keep the UI responsive and the server stable during bursty workloads."
+        ),
+        React.createElement("div", { className: "mt-8 w-full" },
+          React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
+            React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "What makes it robust"),
+            React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
+              React.createElement("li", null, React.createElement("strong", null, "Framed TCP messages"), " prevent boundary bugs and partial reads"),
+              React.createElement("li", null, React.createElement("strong", null, "Bounded queue backpressure"), " caps memory during bursts"),
+              React.createElement("li", null, React.createElement("strong", null, "Worker pool parallelism"), " scales OCR work across CPU cores"),
+              React.createElement("li", null, React.createElement("strong", null, "Per-file results"), " return text + timing for transparency")
+            )
+          )
+        )
+      ),
+      images: [
+        "/assets/images/OCR_client_ui.png",
+        "/assets/images/OCR_server_logs.png"
+      ]
     },
-    content: {
-      techTitle: "System Architecture",
-      context: 'Built to understand the constraints of distributed processing queues.',
-      problem: 'Sequential processing of large PDF dumps was too slow and prone to single-point failures.',
-      solution: 'Architected a microservices-based worker pool pattern using Go and Redis streams. The system handles retries, dead-letter queues, and autoscaling based on load.',
-      techStack: ['Go', 'Redis', 'Docker', 'Tesseract'],
-      challenges: 'Handling race conditions when multiple workers attempted to claim the same job segment.',
-      learnings: 'The value of idempotency in distributed system design.',
-    }
+
+    // 2.5 PROCESS (Separate section for visual comparison)
+    process: {
+      title: "Preprocessing Pipeline",
+      items: [
+        { image: "/assets/images/OCR_input_example.jpg", caption: "Raw Input: Noisy & Skewed", tag: "Before" },
+        { image: "/assets/images/OCR_output_example.jpg", caption: "Processed: Binarized & Deskewed", tag: "After" }
+      ]
+    },
+
+    // 3) CHALLENGE
+    problem: React.createElement(React.Fragment, null,
+      React.createElement("p", { className: "text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-50 mb-8 leading-tight" },
+        "OCR becomes a distributed-systems problem the moment you batch it."
+      ),
+      React.createElement("div", { className: "text-lg text-stone-600 dark:text-stone-300 space-y-6 leading-relaxed mb-12" },
+        React.createElement("p", null,
+          "Sequential OCR falls behind quickly when users upload many files. Preprocessing and OCR are CPU-heavy, and without backpressure the server can balloon memory usage."
+        ),
+        React.createElement("p", null,
+          "Networking adds another trap: TCP is a byte stream — without explicit framing, message boundaries break and results get corrupted."
+        )
+      ),
+      React.createElement("div", { className: "border-l-4 border-stone-300 dark:border-stone-700 pl-6 py-1" },
+        React.createElement("p", { className: "text-xl md:text-2xl font-medium text-stone-800 dark:text-stone-200" },
+          "Goal: correct per-file results + stable throughput + honest progress in the UI."
+        )
+      )
+    ),
+
+    // 4) SYSTEM (use the clean job-queue diagram)
+    system: {
+      title: "System Architecture",
+      description: React.createElement(React.Fragment, null,
+        React.createElement("p", { className: "mb-6" },
+          "A Qt client streams image packets to a C++ server over TCP. The server enqueues jobs into a bounded queue, then workers dequeue in parallel to preprocess + OCR and send results back per file."
+        ),
+        React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
+          React.createElement("li", { className: "flex items-center gap-2" },
+            React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }),
+            "Client sends framed packets (filename + image bytes)"
+          ),
+          React.createElement("li", { className: "flex items-center gap-2" },
+            React.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500" }),
+            "Server enqueues into a bounded Producer–Consumer queue"
+          ),
+          React.createElement("li", { className: "flex items-center gap-2" },
+            React.createElement("span", { className: "w-2 h-2 rounded-full bg-amber-500" }),
+            "Workers return OCR text + processing time per image"
+          )
+        ),
+        React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" },
+          "Backpressure makes the pipeline predictable: when bursts happen, the queue sets the pace instead of memory exploding."
+        )
+      ),
+      image: "/assets/images/OCR_architecture.png"
+    },
+
+    // 5) MODES (use as pipeline stages)
+    modes: {
+      title: "Pipeline Stages",
+      items: [
+        {
+          title: "Upload & Frame",
+          subtitle: "TCP message boundaries you can trust",
+          description: "Each request includes explicit lengths so the server can reconstruct messages safely even when TCP splits/merges packets."
+        },
+        {
+          title: "Enqueue with Backpressure",
+          subtitle: "Bounded Producer–Consumer queue",
+          description: "Incoming jobs enter a bounded queue. When full, producers block — keeping memory stable during bursts."
+        },
+        {
+          title: "Preprocess",
+          subtitle: "OpenCV improves OCR readability",
+          description: "Workers normalize inputs (grayscale → blur → binarize, optional deskew) before OCR."
+        },
+        {
+          title: "OCR & Respond",
+          subtitle: "Per-file results + timing",
+          description: "Workers run Tesseract OCR and return recognized text + processing time per image for transparency."
+        }
+      ]
+    },
+
+    // 6) TECH (System Design)
+    techTitle: "Protocol & Concurrency Design",
+    techStack: ['C++20', 'Qt', 'TCP', 'Thread Pool', 'Bounded Queue', 'OpenCV', 'Tesseract'],
+    solution: React.createElement(React.Fragment, null,
+      React.createElement("p", { className: "text-xl font-medium text-stone-800 dark:text-stone-200 mb-8" },
+        "This project is about reliability: framing TCP messages correctly, using backpressure to stay stable under load, and parallelizing CPU-heavy OCR work."
+      ),
+
+      React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4" }, "Framed TCP Protocol"),
+      React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 mb-8" },
+        React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Problem:"), " TCP is a stream — reads don’t align to “messages.”"),
+        React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Fix:"), " prefix payloads with lengths, then read exactly N bytes."),
+        React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Result:"), " consistent per-file OCR results without boundary corruption.")
+      ),
+
+      React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4" }, "Bounded Queue + Worker Pool"),
+      React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 mb-6" },
+        React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Backpressure:"), " bounded queue caps memory usage during spikes."),
+        React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Throughput:"), " thread pool parallelizes preprocessing + OCR across cores."),
+        React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Stability:"), " shutdown avoids deadlocks by unblocking waiting threads cleanly.")
+      ),
+
+      React.createElement("p", { className: "text-stone-600 dark:text-stone-400 italic" },
+        "The UI stays responsive because the system reports real completions — not optimistic progress."
+      )
+    ),
+
+    // 7) PROOF / RESULTS (no “big claims”, just what’s observable)
+    results: {
+      title: "What It Demonstrates",
+      content: React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
+        React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
+          React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "System Properties"),
+          React.createElement("ul", { className: "space-y-3 text-sm text-stone-600 dark:text-stone-300" },
+            React.createElement("li", null, "Stable memory behavior under burst uploads (bounded queue)"),
+            React.createElement("li", null, "Parallel OCR work across multiple workers"),
+            React.createElement("li", null, "Correct per-file responses via framed TCP packets"),
+            React.createElement("li", null, "Visible progress + timing per image in the UI")
+          )
+        ),
+        React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
+          React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Artifacts Returned"),
+          React.createElement("ul", { className: "list-disc pl-4 space-y-2 text-sm text-stone-600 dark:text-stone-300" },
+            React.createElement("li", null, "OCR text output per image"),
+            React.createElement("li", null, "Processing time per image"),
+            React.createElement("li", null, "Batch-friendly results list for browsing and verification")
+          )
+        )
+      )
+    },
+
+    // 8) IMPACT
+    impact: React.createElement(React.Fragment, null,
+      React.createElement("p", { className: "text-xl md:text-2xl font-medium leading-relaxed text-stone-900 dark:text-stone-50 mb-6" },
+        "This project taught me that reliability is part of UX."
+      ),
+      React.createElement("p", { className: "text-lg text-stone-600 dark:text-stone-300 leading-relaxed" },
+        "A fast OCR engine doesn’t matter if networking is fragile or the pipeline collapses under load. The queue, protocol framing, and progress loop are what make the tool feel professional."
+      )
+    )
   }
+}
 ];
 
 export const NAV_ITEMS = [

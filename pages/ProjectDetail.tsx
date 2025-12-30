@@ -112,13 +112,45 @@ const ProjectDetail: React.FC = () => {
               {/* Image Grid - Only render if images exist */}
               {project.content.people.images && project.content.people.images.length > 0 && (
                 <div className="grid grid-cols-2 gap-4">
-                   {project.content.people.images.map((img, i) => (
-                      <div key={i} className={`rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
-                         <img src={img} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
-                      </div>
-                   ))}
+                   {project.content.people.images.map((item, i) => {
+                      const src = typeof item === 'string' ? item : item.src;
+                      const caption = typeof item === 'string' ? null : item.caption;
+                      
+                      return (
+                        <div key={i} className={`relative group rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
+                           <img src={src} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
+                           {caption && (
+                             <div className="absolute inset-0 bg-stone-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                                <p className="text-white text-sm font-bold text-center border-b-2 border-white/30 pb-1">{caption}</p>
+                             </div>
+                           )}
+                        </div>
+                      );
+                   })}
                 </div>
               )}
+           </div>
+        </section>
+      )}
+
+      {/* 2.5 PROCESS (New Comparison Section) */}
+      {project.content?.process && (
+        <section className="mb-24">
+           <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-8">{project.content.process.title}</h3>
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {project.content.process.items.map((item, i) => (
+                 <div key={i} className="group relative rounded-xl overflow-hidden shadow-lg bg-stone-900 border border-stone-800">
+                    <img src={item.image} alt={item.caption} className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute top-4 left-4">
+                       <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full shadow-md ${i === 0 ? 'bg-red-500/90 text-white' : 'bg-emerald-500/90 text-white'}`}>
+                          {item.tag}
+                       </span>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                       <p className="text-white font-medium text-lg">{item.caption}</p>
+                    </div>
+                 </div>
+              ))}
            </div>
         </section>
       )}
@@ -142,7 +174,7 @@ const ProjectDetail: React.FC = () => {
                   {project.content.system.images ? (
                       <div className="grid grid-cols-2 gap-4">
                           {project.content.system.images.map((img, idx) => (
-                              <div key={idx} className="rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 shadow-xl">
+                              <div key={idx} className={`rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-xl ${idx === 0 ? 'border-2 border-blue-500' : idx === 1 ? 'border-2 border-pink-500' : 'border border-stone-200 dark:border-stone-700'}`}>
                                   <img src={img} alt={`System view ${idx + 1}`} className="w-full h-full object-cover aspect-[4/5]" />
                               </div>
                           ))}
