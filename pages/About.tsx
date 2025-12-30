@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/Button';
 import { RESUME_URL } from '../constants';
+import { Github, Linkedin, Instagram, Facebook } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
@@ -31,18 +32,30 @@ const About: React.FC = () => {
             <li><strong>HCI Principles:</strong> Respecting user agency and cognitive load.</li>
             <li><strong>Iterative Polish:</strong> Great software is grown, not just built.</li>
           </ul>
-
-          <h3 className="text-2xl font-bold mt-12 mb-4 text-stone-900 dark:text-stone-50">Beyond the Code</h3>
-          <p className="text-stone-600 dark:text-stone-300">
-            When I'm not in a terminal, I'm likely exploring rhythm and sound. Music deeply informs my coding style—I look for flow, repetition, and structure in software architecture just as I do in a composition.
-          </p>
         </div>
 
         <div className="mt-16 border-t border-stone-200 dark:border-stone-800 pt-8">
            <h3 className="text-xl font-bold mb-6 text-stone-900 dark:text-stone-50">Let's connect</h3>
-           <div className="flex gap-4">
-             <Button href="mailto:hello@giocruz.dev">Email Me</Button>
-             <Button variant="secondary" href={RESUME_URL} external>Resume</Button>
+           <div className="flex flex-col gap-6">
+             <div className="flex gap-4">
+               <Button href="mailto:cruzgiovanni90@gmail.com">Email Me</Button>
+               <Button variant="secondary" href={RESUME_URL} external>Resume</Button>
+             </div>
+             
+             <div className="flex gap-6 text-stone-600 dark:text-stone-400">
+                <a href="https://github.com/jey0C" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+                  <Github size={24} />
+                </a>
+                <a href="https://www.linkedin.com/in/giovanni-cruz-a06852278/" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+                  <Linkedin size={24} />
+                </a>
+                <a href="https://www.instagram.com/jeyo.cruz/" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+                  <Instagram size={24} />
+                </a>
+                 <a href="https://www.facebook.com/giovanni.cruz.5477272" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+                  <Facebook size={24} />
+                </a>
+             </div>
            </div>
         </div>
       </motion.div>

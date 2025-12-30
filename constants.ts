@@ -14,8 +14,7 @@ export const PROJECTS: Project[] = [
     hoverText: 'Built from my love for drums — and the joy of learning it',
     description: 'DrumXRoll is a VR drumming system that combines a real electronic drum kit with XR visuals, helping drummers experience improvisation—not just practice patterns.',
     links: {
-      demo: '#',
-      github: '#',
+      github: 'https://github.com/NeoMonserrat/DrumXRoll',
     },
     content: {
       // 2. PEOPLE
@@ -191,8 +190,8 @@ export const PROJECTS: Project[] = [
     hoverText: 'Explore your emotional history like a terrain—peaks, valleys, seasons.',
     description: 'Emberlands is a private, web-based creative tool that transforms personal moments into a living 3D emotional terrain—designed to support reflection through spatial experience rather than journaling, metrics, or advice.',
     links: {
-      demo: '#',
-      github: '#',
+      demo: 'https://emberlands.vercel.app',
+      github: 'https://github.com/jey0C/Emberlands',
     },
     content: {
       // 2. PEOPLE
@@ -266,17 +265,12 @@ export const PROJECTS: Project[] = [
           React.createElement("p", { className: "mb-6" }, 
             "Emberlands renders emotional history as a navigable 3D terrain — a space you can move through instead of a log you scroll past."
           ),
-          // MODIFIED: Standard white bullets
+          // MODIFIED: Standard white bullets - Replaced technical XYZ with metaphorical descriptions
           React.createElement("ul", { className: "list-disc pl-5 space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
-            React.createElement("li", null, "X (time): moments accumulate into a timeline you can traverse"),
-            React.createElement("li", null, "Y (intensity): emotional weight becomes elevation"),
-            React.createElement("li", null, "Z (similarity): emotionally similar moments cluster nearer together")
+            React.createElement("li", null, "Valleys suggest calm / neutral states"),
+            React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
+            React.createElement("li", null, "Plateaus signal emotional stability")
           ),
-           React.createElement("ul", { className: "list-disc pl-5 space-y-1 text-stone-700 dark:text-stone-300 text-sm mb-6" },
-                React.createElement("li", null, "Valleys suggest calm / neutral states"),
-                React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
-                React.createElement("li", null, "Plateaus signal emotional stability")
-            ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
@@ -388,8 +382,7 @@ export const PROJECTS: Project[] = [
     'A Qt desktop client batches image uploads to a multi-threaded C++ server. The server preprocesses images with OpenCV, runs Tesseract OCR, and returns OCR text + processing time per file.',
 
   links: {
-    demo: '#',
-    github: '#',
+    github: 'https://github.com/jey0C/Distributed-OCR-Pipeline',
   },
 
   content: {

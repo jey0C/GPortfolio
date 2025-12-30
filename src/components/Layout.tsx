@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { NAV_ITEMS, RESUME_URL } from '../constants';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GioLogo from './GioLogo';
 
@@ -80,7 +80,7 @@ const Layout: React.FC = () => {
             </a>
             
             <a 
-              href="mailto:hello@giocruz.dev"
+              href="mailto:cruzgiovanni90@gmail.com"
               className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
             >
               Contact
@@ -135,7 +135,7 @@ const Layout: React.FC = () => {
             <a href={RESUME_URL} target="_blank" rel="noreferrer" className="text-2xl font-medium text-stone-800 dark:text-stone-100">
               Resume
             </a>
-             <a href="mailto:hello@giocruz.dev" className="text-2xl font-medium text-stone-800 dark:text-stone-100">
+             <a href="mailto:cruzgiovanni90@gmail.com" className="text-2xl font-medium text-stone-800 dark:text-stone-100">
               Contact
             </a>
           </motion.div>
@@ -157,9 +157,18 @@ const Layout: React.FC = () => {
             </p>
           </div>
           <div className="flex gap-6 text-stone-600 dark:text-stone-400">
-            <a href="#" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">GitHub</a>
-            <a href="#" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors">Twitter</a>
+            <a href="https://github.com/jey0C" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors" aria-label="GitHub">
+              <Github size={20} />
+            </a>
+            <a href="https://www.linkedin.com/in/giovanni-cruz-a06852278/" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors" aria-label="LinkedIn">
+              <Linkedin size={20} />
+            </a>
+             <a href="https://www.instagram.com/jeyo.cruz/" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors" aria-label="Instagram">
+              <Instagram size={20} />
+            </a>
+             <a href="https://www.facebook.com/giovanni.cruz.5477272" target="_blank" rel="noopener noreferrer" className="hover:text-stone-900 dark:hover:text-stone-200 transition-colors" aria-label="Facebook">
+              <Facebook size={20} />
+            </a>
           </div>
         </div>
         <div className="container mx-auto max-w-6xl px-6 mt-12 text-sm text-stone-400 dark:text-stone-500 flex flex-col md:flex-row justify-between items-center gap-4">

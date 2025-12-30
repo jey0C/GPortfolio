@@ -12,9 +12,13 @@ const PROFILE_IMG_PATH = "/assets/images/me.jpg";
 
 const Home: React.FC = () => {
   const [hasError, setHasError] = useState(false);
-  const [hasHovered, setHasHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false); // Tracks desktop hover
+  const [isTapped, setIsTapped] = useState(false);   // Tracks mobile tap toggle
   const [showIntro, setShowIntro] = useState(true);
   
+  // Logic to determine if stickers should show
+  const showStickers = isHovered || isTapped;
+
   // Optional: Only show intro once per session
   useEffect(() => {
     const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
@@ -27,7 +31,9 @@ const Home: React.FC = () => {
 
   const flagshipProjects = PROJECTS.filter(p => p.type === 'flagship');
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
-  const hintText = "hover?".split("");
+  
+  const hintTextDesktop = "hover?".split("");
+  const hintTextMobile = "tap?".split("");
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -52,7 +58,7 @@ const Home: React.FC = () => {
   // Sticker animation variants
   const stickerVariants: Variants = {
     hidden: { scale: 0, opacity: 0, rotate: 0 },
-    hover: (custom: number) => ({
+    visible: (custom: number) => ({
       scale: 1,
       opacity: 1,
       rotate: custom,
@@ -68,7 +74,7 @@ const Home: React.FC = () => {
   // Image animation variants
   const imageVariants: Variants = {
     hidden: { scale: 1, rotate: 0 },
-    hover: {
+    active: {
       scale: 1.05,
       rotate: -2,
       transition: {
@@ -88,7 +94,7 @@ const Home: React.FC = () => {
         
         {/* LEFT COLUMN: Sticky Identity (Desktop) */}
         <motion.div 
-          className="lg:col-span-5 lg:h-[calc(100vh-8rem)] lg:sticky lg:top-32 flex flex-col justify-between"
+          className="lg:col-span-5 lg:h-[calc(100vh-8rem)] lg:sticky lg:top-32 flex flex-col justify-between items-center lg:items-start text-center lg:text-left"
           variants={containerVariants}
           initial="hidden"
           animate={!showIntro ? "visible" : "hidden"} // Wait for intro
@@ -99,14 +105,15 @@ const Home: React.FC = () => {
               {/* Profile Image & Stickers Wrapper */}
               <motion.div 
                 className="relative inline-block group"
-                initial="hidden"
-                whileHover="hover"
-                onHoverStart={() => setHasHovered(true)}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                onClick={() => setIsTapped(!isTapped)} // Tap to toggle on mobile
               >
                 {/* Main Image Container */}
                 <motion.div 
-                  className="w-48 h-64 rounded-2xl overflow-hidden mb-8 ring-4 ring-stone-100 dark:ring-stone-800 shadow-xl bg-stone-200 dark:bg-stone-800 relative z-10"
+                  className="w-48 h-64 rounded-2xl overflow-hidden mb-8 ring-4 ring-stone-100 dark:ring-stone-800 shadow-xl bg-stone-200 dark:bg-stone-800 relative z-10 mx-auto lg:mx-0 cursor-pointer"
                   variants={imageVariants}
+                  animate={showStickers ? "active" : "hidden"}
                 >
                    <img 
                       src={PROFILE_IMG_PATH}
@@ -129,18 +136,18 @@ const Home: React.FC = () => {
                     )}
                 </motion.div>
 
-                {/* Hint: hover? with arrow - "Balloon" exit animation */}
+                {/* HINT 1: DESKTOP (Hover?) - Positioned Left */}
                 <AnimatePresence>
-                  {!hasHovered && !showIntro && (
+                  {!showStickers && !showIntro && (
                     <motion.div 
-                      className="absolute top-12 -left-12 md:-left-24 z-20 pointer-events-none block"
+                      className="absolute top-12 -left-24 z-20 pointer-events-none hidden lg:block"
                       initial="hidden"
                       animate="visible"
                       exit="exit"
                     >
-                      <div className="transform -rotate-12 flex items-center gap-1 md:gap-2">
-                         <div className="flex font-mono text-xs md:text-sm font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
-                            {hintText.map((char, index) => (
+                      <div className="transform -rotate-12 flex items-center gap-2">
+                         <div className="flex font-mono text-sm font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
+                            {hintTextDesktop.map((char, index) => (
                               <motion.span
                                 key={index}
                                 className="inline-block"
@@ -153,14 +160,8 @@ const Home: React.FC = () => {
                                   },
                                   exit: { 
                                     opacity: 0,
-                                    // Pseudo-random balloon float effect based on index to avoid hydration mismatch
-                                    y: -30 - ((index * 7) % 20), 
-                                    x: (index % 2 === 0 ? -1 : 1) * (5 + (index * 2)), 
-                                    rotate: (index % 2 === 0 ? -10 : 10) * (index + 1),
-                                    transition: { 
-                                      duration: 1.2, 
-                                      ease: [0.22, 1, 0.36, 1]
-                                    } 
+                                    y: -20, 
+                                    transition: { duration: 0.3 } 
                                   }
                                 }}
                               >
@@ -169,17 +170,11 @@ const Home: React.FC = () => {
                             ))}
                          </div>
                          <motion.div 
-                            className="w-8 h-5 md:w-10 md:h-6 relative"
+                            className="w-10 h-6 relative"
                             variants={{
                               hidden: { opacity: 0, scale: 0.8 },
                               visible: { opacity: 1, scale: 1, transition: { delay: 2.0, duration: 0.4 } },
-                              exit: { 
-                                opacity: 0, 
-                                y: -20, 
-                                rotate: -10,
-                                scale: 0.9,
-                                transition: { duration: 0.8, ease: "easeOut" } 
-                              }
+                              exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } }
                             }}
                          >
                              <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={2.0} />
@@ -189,10 +184,60 @@ const Home: React.FC = () => {
                   )}
                 </AnimatePresence>
 
+                {/* HINT 2: MOBILE (Tap?) - Positioned Right/Bottom to avoid cut-off */}
+                <AnimatePresence>
+                  {!showStickers && !showIntro && (
+                    <motion.div 
+                      className="absolute bottom-4 -right-12 z-20 pointer-events-none block lg:hidden"
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="transform rotate-12 flex items-center gap-1">
+                         <motion.div 
+                            className="w-8 h-5 relative rotate-180 transform scale-x-[-1]" 
+                            variants={{
+                              hidden: { opacity: 0, scale: 0.8 },
+                              visible: { opacity: 1, scale: 1, transition: { delay: 1.5, duration: 0.4 } },
+                              exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } }
+                            }}
+                         >
+                             {/* Reusing curved arrow, flipped for visual variety */}
+                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={1.5} />
+                         </motion.div>
+                         <div className="flex font-mono text-xs font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
+                            {hintTextMobile.map((char, index) => (
+                              <motion.span
+                                key={index}
+                                className="inline-block"
+                                variants={{
+                                  hidden: { opacity: 0, y: 10 },
+                                  visible: { 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 1.8 + (index * 0.1), duration: 0.4 } 
+                                  },
+                                  exit: { 
+                                    opacity: 0,
+                                    y: -20, 
+                                    transition: { duration: 0.3 } 
+                                  }
+                                }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))}
+                         </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Sticker: My Interests... */}
                 <motion.div 
                   className="absolute -top-10 -left-6 z-20 bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
+                  animate={showStickers ? "visible" : "hidden"}
                   custom={-5} 
                 >
                   <span className="font-mono text-xs font-bold uppercase tracking-tighter">I like..</span>
@@ -202,6 +247,7 @@ const Home: React.FC = () => {
                 <motion.div 
                   className="absolute -top-4 -right-10 z-20 bg-blue-500 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
+                  animate={showStickers ? "visible" : "hidden"}
                   custom={12} // Rotation
                 >
                   <Shirt size={16} strokeWidth={2.5} />
@@ -212,6 +258,7 @@ const Home: React.FC = () => {
                 <motion.div 
                   className="absolute top-20 -left-16 z-20 bg-[#ff4d4d] text-white border-2 border-stone-900 px-3 py-2 rounded-full shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
+                  animate={showStickers ? "visible" : "hidden"}
                   custom={-15} // Rotation
                 >
                   <Disc3 size={18} strokeWidth={2.5} className="animate-spin-slow" />
@@ -222,6 +269,7 @@ const Home: React.FC = () => {
                 <motion.div 
                   className="absolute bottom-6 -right-8 z-20 bg-emerald-500 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
+                  animate={showStickers ? "visible" : "hidden"}
                   custom={8} // Rotation
                 >
                   <Gamepad2 size={16} strokeWidth={2.5} />
@@ -232,6 +280,7 @@ const Home: React.FC = () => {
                 <motion.div 
                   className="absolute bottom-6 -left-6 z-20 bg-purple-400 text-white border-2 border-stone-900 px-3 py-2 rounded-lg shadow-[4px_4px_0px_0px_rgba(28,25,23,1)] flex items-center gap-2"
                   variants={stickerVariants}
+                  animate={showStickers ? "visible" : "hidden"}
                   custom={-10} // Rotation
                 >
                   <Palette size={16} strokeWidth={2.5} />
@@ -247,7 +296,7 @@ const Home: React.FC = () => {
                 </h1>
               </div>
 
-              <p className="text-xl md:text-2xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed max-w-md relative">
+              <p className="text-xl md:text-2xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed max-w-md mx-auto lg:mx-0 relative">
                 Software engineering, with a focus on
                 <span className="relative inline-block whitespace-nowrap mx-2 text-stone-900 dark:text-stone-200 font-bold">
                    systems
@@ -261,15 +310,15 @@ const Home: React.FC = () => {
               </p>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="flex flex-col gap-6 items-start">
+            <motion.div variants={itemVariants} className="flex flex-col gap-6 items-center lg:items-start">
               <p className="text-stone-500 dark:text-stone-500 text-sm max-w-sm leading-relaxed">
                 I’m interested in how technical foundations and interface design come together in real products.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                 <Button variant="white" href={RESUME_URL} external>
                   Resume
                 </Button>
-                <Button href="mailto:hello@giocruz.dev">
+                <Button href="mailto:cruzgiovanni90@gmail.com">
                   Contact
                 </Button>
               </div>
@@ -346,7 +395,14 @@ const Home: React.FC = () => {
           {/* Footer Area within Scroll */}
           <section className="pt-12 border-t border-stone-200 dark:border-stone-800 relative">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 dark:text-stone-50 mb-8">Let's build something real.</h2>
-            {/* Arrow pointing back to sticky sidebar buttons */}
+            
+            {/* Mobile Actions (Visible only on mobile/tablet) */}
+            <div className="flex gap-4 mb-8 md:hidden">
+              <Button variant="white" href={RESUME_URL} external>Resume</Button>
+              <Button href="mailto:cruzgiovanni90@gmail.com">Contact</Button>
+            </div>
+
+            {/* Arrow pointing back to sticky sidebar buttons (Desktop only) */}
             <div className="absolute -left-[5rem] lg:-left-[25rem] top-4 z-0 hidden md:block pointer-events-none">
                {/* Positioned to point from the right column footer towards the left column sticky sidebar */}
                <Scribble type="long-arrow-left" className="text-blue-500 dark:text-blue-400 opacity-80" delay={0.2} />

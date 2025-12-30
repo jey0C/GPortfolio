@@ -14,8 +14,7 @@ export const PROJECTS: Project[] = [
     hoverText: 'Built from my love for drums — and the joy of learning it',
     description: 'DrumXRoll is a VR drumming system that combines a real electronic drum kit with XR visuals, helping drummers experience improvisation—not just practice patterns.',
     links: {
-      demo: '#',
-      github: '#',
+      github: 'https://github.com/NeoMonserrat/DrumXRoll',
     },
     content: {
       // 2. PEOPLE
@@ -66,14 +65,17 @@ export const PROJECTS: Project[] = [
         title: "A Hybrid XR Instrument",
         description: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6" }, 
-            "DrumXRoll is a hybrid XR instrument that augments a real electronic drum kit instead of replacing it."
+            "DrumXRoll augments a real electronic drum kit with XR-based visual feedback."
+          ),
+          React.createElement("p", { className: "mb-6" }, 
+            "The physical instrument remains central, while XR is used to externalize timing and rhythmic structure during play."
           ),
           React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Real electronic drum kit"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Physical electronic drum kit"
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "VR headset"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "XR headset view"
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
               React.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500" }), "Piano-roll-inspired rhythmic visualization"
@@ -166,8 +168,8 @@ export const PROJECTS: Project[] = [
     hoverText: 'Explore your emotional history like a terrain—peaks, valleys, seasons.',
     description: 'Emberlands is a private, web-based creative tool that transforms personal moments into a living 3D emotional terrain—designed to support reflection through spatial experience rather than journaling, metrics, or advice.',
     links: {
-      demo: '#',
-      github: '#',
+      demo: 'https://emberlands.vercel.app',
+      github: 'https://github.com/jey0C/Emberlands',
     },
     content: {
       // 2. PEOPLE
@@ -242,22 +244,12 @@ export const PROJECTS: Project[] = [
           React.createElement("p", { className: "mb-6" }, 
             "Emberlands renders emotional history as a navigable 3D terrain — a space you can move through instead of a log you scroll past."
           ),
-          React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
-            React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "X (time): moments accumulate into a timeline you can traverse"
-            ),
-            React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-orange-500" }), "Y (intensity): emotional weight becomes elevation"
-            ),
-             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-purple-500" }), "Z (similarity): emotionally similar moments cluster nearer together"
-            )
+          // MODIFIED: Standard white bullets - Replaced technical XYZ with metaphorical descriptions
+          React.createElement("ul", { className: "list-disc pl-5 space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
+            React.createElement("li", null, "Valleys suggest calm / neutral states"),
+            React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
+            React.createElement("li", null, "Plateaus signal emotional stability")
           ),
-           React.createElement("ul", { className: "list-disc pl-5 space-y-1 text-stone-700 dark:text-stone-300 text-sm mb-6" },
-                React.createElement("li", null, "Valleys suggest calm / neutral states"),
-                React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
-                React.createElement("li", null, "Plateaus signal emotional stability")
-            ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
@@ -293,6 +285,7 @@ export const PROJECTS: Project[] = [
       },
 
       // 6. TECH
+      techTitle: "Designing for Emotional Presence",
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "text-xl font-medium text-stone-800 dark:text-stone-200 mb-8" }, 
            "Emberlands treats technology as invisible scaffolding — the point is a calm, responsive space for reflection."
@@ -361,7 +354,7 @@ export const PROJECTS: Project[] = [
     image: 'https://picsum.photos/800/600?random=3',
     description: 'A scalable backend service capable of processing 10k+ document pages per hour with 99.9% uptime.',
     links: {
-      github: '#',
+      github: 'https://github.com/jey0C/Distributed-OCR-Pipeline',
     },
     content: {
       context: 'Built to understand the constraints of distributed processing queues.',
