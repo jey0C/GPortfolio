@@ -77,7 +77,7 @@ export const PROJECTS: Project[] = [
               React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Physical electronic drum kit"
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "XR headset"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-pink-500" }), "XR headset view"
             )
           ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
@@ -268,15 +268,10 @@ export const PROJECTS: Project[] = [
           ),
           // MODIFIED: Standard white bullets
           React.createElement("ul", { className: "list-disc pl-5 space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
-            React.createElement("li", null, "X (time): moments accumulate into a timeline you can traverse"),
-            React.createElement("li", null, "Y (intensity): emotional weight becomes elevation"),
-            React.createElement("li", null, "Z (similarity): emotionally similar moments cluster nearer together")
+            React.createElement("li", null, "Valleys suggest calm / neutral states"),
+            React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
+            React.createElement("li", null, "Plateaus signal emotional stability")
           ),
-           React.createElement("ul", { className: "list-disc pl-5 space-y-1 text-stone-700 dark:text-stone-300 text-sm mb-6" },
-                React.createElement("li", null, "Valleys suggest calm / neutral states"),
-                React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
-                React.createElement("li", null, "Plateaus signal emotional stability")
-            ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
@@ -397,22 +392,23 @@ export const PROJECTS: Project[] = [
     people: {
       title: "Built Like a Real System",
       subtitle: "Client–server + backpressure + parallel workers",
-      content: React.createElement(React.Fragment, null,
-        React.createElement("p", { className: "mb-6 text-lg leading-relaxed" },
-          "I built this as a systems-first OCR pipeline: batch uploads, reliable networking, and predictable throughput. The goal wasn’t just to run OCR — it was to keep the UI responsive and the server stable during bursty workloads."
-        ),
-        React.createElement("div", { className: "mt-8 w-full" },
-          React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
-            React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "What makes it robust"),
-            React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
-              React.createElement("li", null, React.createElement("strong", null, "Framed TCP messages"), " prevent boundary bugs and partial reads"),
-              React.createElement("li", null, React.createElement("strong", null, "Bounded queue backpressure"), " caps memory during bursts"),
-              React.createElement("li", null, React.createElement("strong", null, "Worker pool parallelism"), " scales OCR work across CPU cores"),
-              React.createElement("li", null, React.createElement("strong", null, "Per-file results"), " return text + timing for transparency")
-            )
+      content: React.createElement("p", { className: "mb-6 text-lg leading-relaxed" },
+        "I built this as a systems-first OCR pipeline: batch uploads, reliable networking, and predictable throughput. The goal wasn’t just to run OCR — it was to keep the UI responsive and the server stable during bursty workloads."
+      ),
+      
+      // MOVED: The card is now in featureBox for custom side-by-side layout
+      featureBox: React.createElement("div", { className: "w-full" },
+        React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
+          React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "What makes it robust"),
+          React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
+            React.createElement("li", null, React.createElement("strong", null, "Framed TCP messages"), " prevent boundary bugs and partial reads"),
+            React.createElement("li", null, React.createElement("strong", null, "Bounded queue backpressure"), " caps memory during bursts"),
+            React.createElement("li", null, React.createElement("strong", null, "Worker pool parallelism"), " scales OCR work across CPU cores"),
+            React.createElement("li", null, React.createElement("strong", null, "Per-file results"), " return text + timing for transparency")
           )
         )
       ),
+
       images: [
         "/assets/images/OCR_client_ui.png",
         "/assets/images/OCR_server_logs.png"

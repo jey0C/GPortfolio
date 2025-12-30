@@ -37,6 +37,7 @@ export interface ProjectContent {
     subtitle: string;
     logo?: string; 
     content: ReactNode;
+    featureBox?: ReactNode; // New field for the sidebar card (e.g. Robustness checklist)
     images?: (string | { src: string; caption?: string })[]; 
   };
   process?: {

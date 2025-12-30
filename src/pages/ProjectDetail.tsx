@@ -32,7 +32,8 @@ const ProjectDetail: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 items-center"
       >
-         <div className="lg:col-span-6 flex flex-col justify-center items-start">
+         {/* Text Side - Reduced from col-span-6 to col-span-5 */}
+         <div className="lg:col-span-5 flex flex-col justify-center items-start">
             <div className="flex flex-wrap gap-2 mb-6">
               {project.tags.map(tag => (
                 <span key={tag} className="text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 bg-stone-200 dark:bg-stone-800 px-3 py-1 rounded-full">
@@ -67,7 +68,8 @@ const ProjectDetail: React.FC = () => {
             </div>
          </div>
          
-         <div className="lg:col-span-6">
+         {/* Image Side - Increased from col-span-6 to col-span-7 */}
+         <div className="lg:col-span-7">
             <div className="rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 aspect-video shadow-2xl relative">
                <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay z-10" />
                <img 
@@ -86,50 +88,98 @@ const ProjectDetail: React.FC = () => {
          </div>
       </motion.div>
 
-      {/* 2. PEOPLE SECTION (New Flow) */}
+      {/* 2. PEOPLE SECTION (Modified for flexible layout) */}
       {project.content?.people && (
         <section className="mb-24 bg-stone-100 dark:bg-stone-900/50 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-           <div className={`relative z-10 grid grid-cols-1 ${project.content.people.images?.length ? 'lg:grid-cols-2' : ''} gap-12 items-start`}>
-              <div className={!project.content.people.images?.length ? "w-full" : ""}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-8 h-[1px] bg-stone-400"></span>
-                  <span className="text-xs font-bold uppercase tracking-widest text-stone-500">{project.content.people.subtitle}</span>
+           {project.content.people.featureBox ? (
+             /* New Layout: Text Left, Feature Box Right, Images Below */
+             <>
+               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-12">
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="w-8 h-[1px] bg-stone-400"></span>
+                      <span className="text-xs font-bold uppercase tracking-widest text-stone-500">{project.content.people.subtitle}</span>
+                    </div>
+                    
+                    <div className="flex items-start justify-between gap-4 mb-6">
+                       <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50">{project.content.people.title}</h3>
+                       {project.content.people.logo && (
+                          <img src={project.content.people.logo} alt="Project Logo" className="h-20 w-auto object-contain" />
+                       )}
+                    </div>
+
+                    <div className="text-stone-700 dark:text-stone-300 w-full">
+                      {project.content.people.content}
+                    </div>
+                  </div>
+                  
+                  {/* Feature Box (Right Column) */}
+                  <div className="mt-4 lg:mt-0 w-full">
+                     {project.content.people.featureBox}
+                  </div>
+               </div>
+
+               {/* Images (Full Width Below) */}
+               {project.content.people.images && project.content.people.images.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     {project.content.people.images.map((item, i) => {
+                        const src = typeof item === 'string' ? item : item.src;
+                        const caption = typeof item === 'string' ? null : item.caption;
+                        return (
+                          <div key={i} className="relative group rounded-lg overflow-hidden shadow-lg aspect-video bg-stone-200 dark:bg-stone-800">
+                             <img src={src} alt={`Detail ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                             {caption && (
+                               <div className="absolute bottom-0 left-0 right-0 bg-stone-900/80 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                  <p className="text-white text-xs font-medium text-center">{caption}</p>
+                               </div>
+                             )}
+                          </div>
+                        );
+                     })}
+                  </div>
+               )}
+             </>
+           ) : (
+             /* Legacy Layout: Text Left, Images Right Grid */
+             <div className={`relative z-10 grid grid-cols-1 ${project.content.people.images?.length ? 'lg:grid-cols-2' : ''} gap-12 items-start`}>
+                <div className={!project.content.people.images?.length ? "w-full" : ""}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-8 h-[1px] bg-stone-400"></span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-stone-500">{project.content.people.subtitle}</span>
+                  </div>
+                  
+                  <div className="flex items-start justify-between gap-4 mb-6">
+                     <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50">{project.content.people.title}</h3>
+                     {project.content.people.logo && (
+                        <img src={project.content.people.logo} alt="Project Logo" className="h-20 w-auto object-contain" />
+                     )}
+                  </div>
+
+                  <div className="text-stone-700 dark:text-stone-300 w-full">
+                    {project.content.people.content}
+                  </div>
                 </div>
                 
-                {/* Title and Logo Row */}
-                <div className="flex items-start justify-between gap-4 mb-6">
-                   <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50">{project.content.people.title}</h3>
-                   {project.content.people.logo && (
-                      <img src={project.content.people.logo} alt="Project Logo" className="h-20 w-auto object-contain" />
-                   )}
-                </div>
-
-                <div className="text-stone-700 dark:text-stone-300 w-full">
-                  {project.content.people.content}
-                </div>
-              </div>
-              
-              {/* Image Grid - Only render if images exist */}
-              {project.content.people.images && project.content.people.images.length > 0 && (
-                <div className="grid grid-cols-2 gap-4">
-                   {project.content.people.images.map((item, i) => {
-                      const src = typeof item === 'string' ? item : item.src;
-                      const caption = typeof item === 'string' ? null : item.caption;
-                      
-                      return (
-                        <div key={i} className={`relative group rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
-                           <img src={src} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
-                           {caption && (
-                             <div className="absolute inset-0 bg-stone-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                                <p className="text-white text-sm font-bold text-center border-b-2 border-white/30 pb-1">{caption}</p>
-                             </div>
-                           )}
-                        </div>
-                      );
-                   })}
-                </div>
-              )}
-           </div>
+                {project.content.people.images && project.content.people.images.length > 0 && (
+                  <div className="grid grid-cols-2 gap-4">
+                     {project.content.people.images.map((item, i) => {
+                        const src = typeof item === 'string' ? item : item.src;
+                        const caption = typeof item === 'string' ? null : item.caption;
+                        return (
+                          <div key={i} className={`relative group rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
+                             <img src={src} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
+                             {caption && (
+                               <div className="absolute inset-0 bg-stone-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                                  <p className="text-white text-sm font-bold text-center border-b-2 border-white/30 pb-1">{caption}</p>
+                               </div>
+                             )}
+                          </div>
+                        );
+                     })}
+                  </div>
+                )}
+             </div>
+           )}
         </section>
       )}
 
