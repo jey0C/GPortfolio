@@ -89,8 +89,8 @@ const ProjectDetail: React.FC = () => {
       {/* 2. PEOPLE SECTION (New Flow) */}
       {project.content?.people && (
         <section className="mb-24 bg-stone-100 dark:bg-stone-900/50 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
+           <div className={`relative z-10 grid grid-cols-1 ${project.content.people.images?.length ? 'lg:grid-cols-2' : ''} gap-12 items-start`}>
+              <div className={!project.content.people.images?.length ? "w-full" : ""}>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-8 h-[1px] bg-stone-400"></span>
                   <span className="text-xs font-bold uppercase tracking-widest text-stone-500">{project.content.people.subtitle}</span>
@@ -104,19 +104,21 @@ const ProjectDetail: React.FC = () => {
                    )}
                 </div>
 
-                <div className="text-stone-700 dark:text-stone-300">
+                <div className="text-stone-700 dark:text-stone-300 w-full">
                   {project.content.people.content}
                 </div>
               </div>
               
-              {/* Image Grid - Staggers every odd index for visual rhythm */}
-              <div className="grid grid-cols-2 gap-4">
-                 {project.content.people.images?.map((img, i) => (
-                    <div key={i} className={`rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
-                       <img src={img} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
-                    </div>
-                 ))}
-              </div>
+              {/* Image Grid - Only render if images exist */}
+              {project.content.people.images && project.content.people.images.length > 0 && (
+                <div className="grid grid-cols-2 gap-4">
+                   {project.content.people.images.map((img, i) => (
+                      <div key={i} className={`rounded-lg overflow-hidden shadow-lg ${(i % 2 === 1) ? 'translate-y-8' : ''}`}>
+                         <img src={img} alt={`Process ${i + 1}`} className="w-full h-full object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500" />
+                      </div>
+                   ))}
+                </div>
+              )}
            </div>
         </section>
       )}
@@ -184,7 +186,8 @@ const ProjectDetail: React.FC = () => {
          <h3 className="text-sm font-bold uppercase tracking-widest text-stone-400 mb-8">System Design</h3>
          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-4">
-               <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-6">Making It Feel Musical</h3>
+               {/* Use dynamic title based on project, fallback if missing */}
+               <h3 className="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-6">{project.content?.techTitle || "System Architecture"}</h3>
                <div className="flex flex-wrap gap-2">
                   {project.content?.techStack.map(tech => (
                      <span key={tech} className="px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 rounded text-sm font-medium">{tech}</span>

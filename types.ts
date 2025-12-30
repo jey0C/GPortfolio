@@ -27,6 +27,9 @@ export interface ProjectContent {
   challenges?: string;
   learnings?: ReactNode;
   images?: string[];
+  
+  // Custom Section Title
+  techTitle?: string;
 
   // New Structured Fields (Custom Layouts)
   people?: {

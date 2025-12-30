@@ -121,6 +121,7 @@ export const PROJECTS: Project[] = [
       },
 
       // 6. TECH
+      techTitle: "Making It Feel Musical",
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "text-xl font-medium text-stone-800 dark:text-stone-200 mb-8" }, 
            "Designing for feel, not just correctness."
@@ -205,23 +206,44 @@ export const PROJECTS: Project[] = [
           React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
             "Emberlands is built for reflection without judgment. Instead of asking users to score feelings or write long journal entries, it turns small moments into a visual space you can return to. The goal isn’t to explain emotions — it’s to make patterns visible enough that meaning can emerge on its own."
           ),
-          React.createElement("div", { className: "mt-8 w-full" },
-            React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
-              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "Defining The Space"),
-              React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
-                React.createElement("li", null, React.createElement("strong", null, "Not:"), " Therapy, diagnosis, or advice"),
-                React.createElement("li", null, React.createElement("strong", null, "Not:"), " Dashboards, scores, streaks, or optimization"),
-                React.createElement("li", null, React.createElement("strong", null, "Is:"), " A private emotional archive you can explore"),
-                React.createElement("li", null, React.createElement("strong", null, "Is:"), " Data-driven generative art for noticing patterns")
+          
+          // EMOTIONAL PALETTE SHOWCASE
+          React.createElement("div", { className: "mt-12" },
+            React.createElement("h4", { className: "text-2xl font-bold text-center mb-2 text-stone-900 dark:text-stone-50" }, "Emotional Palette"),
+            React.createElement("p", { className: "text-center text-stone-600 dark:text-stone-400 mb-10 max-w-2xl mx-auto italic" }, 
+              "The landscape is painted with these eight fundamental energies. Understanding their form helps reveal the architecture of your inner world."
+            ),
+            React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" },
+              [
+                { name: 'Joy', color: 'bg-amber-400', desc: 'A sense of vibrant warmth, connection, and fulfillment.', meta: 'Luminous amber peaks that catch the light.' },
+                { name: 'Sorrow', color: 'bg-blue-500', desc: 'The quiet depth of loss, reflection, or gentle release.', meta: 'Deep blue valleys where shadows and clarity reside.' },
+                { name: 'Anger', color: 'bg-red-500', desc: 'A sharp surge of energy, boundaries, or righteous heat.', meta: 'Jagged red ridges that command immediate presence.' },
+                { name: 'Fear', color: 'bg-purple-500', desc: 'An alert state of uncertainty, protection, or perceived risk.', meta: 'Misty purple heights shrouded in vigilance.' },
+                { name: 'Calm', color: 'bg-emerald-500', desc: 'The steady pulse of peace, presence, and internal balance.', meta: 'Expansive emerald plateaus of quiet stability.' },
+                { name: 'Excitement', color: 'bg-pink-500', desc: 'High-frequency anticipation and buoyant, outward energy.', meta: 'Bright pink sparks rising above the horizon.' },
+                { name: 'Anxiety', color: 'bg-orange-500', desc: 'A restless vibration of worry or future-oriented tension.', meta: 'Shifting orange dunes that never quite settle.' },
+                { name: 'Awe', color: 'bg-cyan-400', desc: 'The overwhelming realization of something vast and wondrous.', meta: 'Luminous cyan horizons that stretch the spirit.' },
+              ].map(e => 
+                React.createElement("div", { key: e.name, className: "bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 p-5 rounded-xl flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-300" },
+                  // Header
+                  React.createElement("div", { className: "flex items-center gap-3 mb-3" },
+                    React.createElement("span", { className: `w-3 h-3 rounded-full ${e.color}` }),
+                    React.createElement("h5", { className: "font-bold text-lg text-stone-900 dark:text-stone-50" }, e.name)
+                  ),
+                  // Desc
+                  React.createElement("p", { className: "text-sm text-stone-600 dark:text-stone-300 mb-4 flex-grow leading-relaxed" }, e.desc),
+                  // Separator
+                  React.createElement("div", { className: "w-full h-px bg-stone-100 dark:bg-stone-700 mb-3" }),
+                  // Metaphor
+                  React.createElement("div", null,
+                     React.createElement("span", { className: "block text-[10px] font-bold uppercase tracking-wider text-stone-400 mb-1" }, "Landscape Metaphor"),
+                     React.createElement("p", { className: "text-xs italic text-stone-500 dark:text-stone-400 font-serif" }, e.meta)
+                  )
+                )
               )
             )
           )
         ),
-        images: [
-           "/assets/images/EBL_workshop1.png",
-           "/assets/images/EBL_workshop2.png", 
-           "/assets/images/EBL_workshop3.png"
-        ]
       },
 
       // 3. PROBLEM
@@ -247,16 +269,11 @@ export const PROJECTS: Project[] = [
           React.createElement("p", { className: "mb-6" }, 
             "Emberlands renders emotional history as a navigable 3D terrain — a space you can move through instead of a log you scroll past."
           ),
-          React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
-            React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "X (time): moments accumulate into a timeline you can traverse"
-            ),
-            React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-orange-500" }), "Y (intensity): emotional weight becomes elevation"
-            ),
-             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-purple-500" }), "Z (similarity): emotionally similar moments cluster nearer together"
-            )
+          // MODIFIED: Standard white bullets
+          React.createElement("ul", { className: "list-disc pl-5 space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
+            React.createElement("li", null, "X (time): moments accumulate into a timeline you can traverse"),
+            React.createElement("li", null, "Y (intensity): emotional weight becomes elevation"),
+            React.createElement("li", null, "Z (similarity): emotionally similar moments cluster nearer together")
           ),
            React.createElement("ul", { className: "list-disc pl-5 space-y-1 text-stone-700 dark:text-stone-300 text-sm mb-6" },
                 React.createElement("li", null, "Valleys suggest calm / neutral states"),
@@ -298,6 +315,7 @@ export const PROJECTS: Project[] = [
       },
 
       // 6. TECH
+      techTitle: "Designing for Emotional Presence",
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "text-xl font-medium text-stone-800 dark:text-stone-200 mb-8" }, 
            "Emberlands treats technology as invisible scaffolding — the point is a calm, responsive space for reflection."
@@ -321,30 +339,7 @@ export const PROJECTS: Project[] = [
       ),
       techStack: ['React', 'Three.js', 'WebGL', 'NLP', 'D3.js'],
 
-      // 7. RESULTS
-      results: {
-        title: "Privacy & Ethics",
-        content: React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
-           React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
-              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Privacy by Design"),
-              React.createElement("ul", { className: "space-y-3 text-sm text-stone-600 dark:text-stone-300" },
-                React.createElement("li", null, "Data is private by default"),
-                React.createElement("li", null, "No public sharing or social features"),
-                React.createElement("li", null, "No emotional ranking or comparison"),
-                React.createElement("li", null, "Local-first or encrypted storage options")
-              )
-           ),
-           React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
-              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Pattern Discovery"),
-              React.createElement("ul", { className: "list-disc pl-4 space-y-2 text-sm text-stone-600 dark:text-stone-300" },
-                React.createElement("li", null, "Cycles and repeated emotional seasons"),
-                React.createElement("li", null, "Sudden spikes / transitions"),
-                React.createElement("li", null, "Gentle overlays + reflective prompts"),
-                React.createElement("li", null, "No prescriptions, no ranking")
-              )
-           )
-        )
-      },
+      // 7. RESULTS REMOVED
 
       // 8. IMPACT
       impact: React.createElement(React.Fragment, null,
@@ -369,6 +364,7 @@ export const PROJECTS: Project[] = [
       github: '#',
     },
     content: {
+      techTitle: "System Architecture",
       context: 'Built to understand the constraints of distributed processing queues.',
       problem: 'Sequential processing of large PDF dumps was too slow and prone to single-point failures.',
       solution: 'Architected a microservices-based worker pool pattern using Go and Redis streams. The system handles retries, dead-letter queues, and autoscaling based on load.',

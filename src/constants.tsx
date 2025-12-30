@@ -157,126 +157,166 @@ export const PROJECTS: Project[] = [
   {
     id: 'emberlands',
     title: 'Emberlands',
-    oneLiner: 'Emotional data as a landscape you can explore, not analyze.',
-    tags: ['HCI', 'Data Art', 'Creative Computing', 'WebGL', 'Embodied Interaction'],
+    oneLiner: 'Turn personal moments into a 3D emotional landscape for gentle self-reflection.',
+    logo: '/assets/images/EBL_logo.png',
+    tags: ['Privacy-by-Design', 'HCI', 'Data Art', 'Creative Computing', 'WebGL', 'Embodied Interaction'],
     type: 'flagship',
-    image: '/assets/images/EBL_projectcard.jpg',
+    image: '/assets/images/EBL_projectcard.png',
     gif: '/assets/demos/EBL_projectcard.gif',
-    hoverText: 'What if feelings were a place you could visit?',
+    hoverText: 'Explore your emotional history like a terrain—peaks, valleys, seasons.',
     description: 'Emberlands is a private, web-based creative tool that transforms personal moments into a living 3D emotional terrain—designed to support reflection through spatial experience rather than journaling, metrics, or advice.',
     links: {
       demo: '#',
       github: '#',
     },
     content: {
+      // 2. PEOPLE
       people: {
-        title: "Design Intent",
-        subtitle: "Philosophy & Constraints",
+        title: "Boundaries by Design",
+        subtitle: "Reflective, not evaluative",
         content: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6 text-lg leading-relaxed" }, 
-            "Emberlands was deliberately designed with strong boundaries. It is not a therapy replacement, a mood tracker, or a productivity tool. It is a private emotional archive."
+            "Emberlands is built for reflection without judgment. Instead of asking users to score feelings or write long journal entries, it turns small moments into a visual space you can return to. The goal isn’t to explain emotions — it’s to make patterns visible enough that meaning can emerge on its own."
           ),
-          React.createElement("div", { className: "mt-8 w-full" },
-            React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-lg border border-stone-200 dark:border-stone-700 shadow-sm" },
-              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-3 uppercase text-xs tracking-wider" }, "Defining The Space"),
-              React.createElement("ul", { className: "list-disc pl-5 space-y-2 text-stone-700 dark:text-stone-300 text-sm" },
-                React.createElement("li", null, React.createElement("strong", null, "Not:"), " A dashboard, a social platform, or a place for advice."),
-                React.createElement("li", null, React.createElement("strong", null, "Is:"), " A space for slow, self-directed reflection."),
-                React.createElement("li", null, React.createElement("strong", null, "Is:"), " Emotional information treated as generative material."),
-                React.createElement("li", null, React.createElement("strong", null, "Is:"), " A system that reveals structure without judgment.")
+          
+          // EMOTIONAL PALETTE SHOWCASE
+          React.createElement("div", { className: "mt-12" },
+            React.createElement("h4", { className: "text-2xl font-bold text-center mb-2 text-stone-900 dark:text-stone-50" }, "Emotional Palette"),
+            React.createElement("p", { className: "text-center text-stone-600 dark:text-stone-400 mb-10 max-w-2xl mx-auto italic" }, 
+              "The landscape is painted with these eight fundamental energies. Understanding their form helps reveal the architecture of your inner world."
+            ),
+            React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" },
+              [
+                { name: 'Joy', color: 'bg-amber-400', desc: 'A sense of vibrant warmth, connection, and fulfillment.', meta: 'Luminous amber peaks that catch the light.' },
+                { name: 'Sorrow', color: 'bg-blue-500', desc: 'The quiet depth of loss, reflection, or gentle release.', meta: 'Deep blue valleys where shadows and clarity reside.' },
+                { name: 'Anger', color: 'bg-red-500', desc: 'A sharp surge of energy, boundaries, or righteous heat.', meta: 'Jagged red ridges that command immediate presence.' },
+                { name: 'Fear', color: 'bg-purple-500', desc: 'An alert state of uncertainty, protection, or perceived risk.', meta: 'Misty purple heights shrouded in vigilance.' },
+                { name: 'Calm', color: 'bg-emerald-500', desc: 'The steady pulse of peace, presence, and internal balance.', meta: 'Expansive emerald plateaus of quiet stability.' },
+                { name: 'Excitement', color: 'bg-pink-500', desc: 'High-frequency anticipation and buoyant, outward energy.', meta: 'Bright pink sparks rising above the horizon.' },
+                { name: 'Anxiety', color: 'bg-orange-500', desc: 'A restless vibration of worry or future-oriented tension.', meta: 'Shifting orange dunes that never quite settle.' },
+                { name: 'Awe', color: 'bg-cyan-400', desc: 'The overwhelming realization of something vast and wondrous.', meta: 'Luminous cyan horizons that stretch the spirit.' },
+              ].map(e => 
+                React.createElement("div", { key: e.name, className: "bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 p-5 rounded-xl flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-300" },
+                  // Header
+                  React.createElement("div", { className: "flex items-center gap-3 mb-3" },
+                    React.createElement("span", { className: `w-3 h-3 rounded-full ${e.color}` }),
+                    React.createElement("h5", { className: "font-bold text-lg text-stone-900 dark:text-stone-50" }, e.name)
+                  ),
+                  // Desc
+                  React.createElement("p", { className: "text-sm text-stone-600 dark:text-stone-300 mb-4 flex-grow leading-relaxed" }, e.desc),
+                  // Separator
+                  React.createElement("div", { className: "w-full h-px bg-stone-100 dark:bg-stone-700 mb-3" }),
+                  // Metaphor
+                  React.createElement("div", null,
+                     React.createElement("span", { className: "block text-[10px] font-bold uppercase tracking-wider text-stone-400 mb-1" }, "Landscape Metaphor"),
+                     React.createElement("p", { className: "text-xs italic text-stone-500 dark:text-stone-400 font-serif" }, e.meta)
+                  )
+                )
               )
             )
           )
         ),
-        images: [
-           "/assets/images/EBL_projectcard.jpg",
-           "/assets/images/EBL_projectcard.jpg" 
-        ]
+        // Removed images array to trigger full-width layout
       },
+
+      // 3. PROBLEM
       problem: React.createElement(React.Fragment, null,
         React.createElement("p", { className: "text-3xl md:text-4xl font-bold text-stone-900 dark:text-stone-50 mb-8 leading-tight" }, 
-          "People experience emotions constantly, yet most tools ask for interpretation before understanding."
+          "People feel a lot — but most tools only help once you can already explain it."
         ),
         React.createElement("div", { className: "text-lg text-stone-600 dark:text-stone-300 space-y-6 leading-relaxed mb-12" },
-            React.createElement("p", null, "Journals require sustained effort and self-analysis. Mood trackers compress emotional life into numbers and charts. Therapeutic tools are often clinical and goal-driven."),
-            React.createElement("p", null, "As a result, emotional patterns usually become visible only in hindsight—long after they’ve shaped behavior."),
-            React.createElement("p", null, "Emberlands explores a different question: ", React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "What if emotional patterns could be seen and felt before they are explained?"))
+            React.createElement("p", null, "Journals demand time and self-analysis. Mood trackers flatten emotion into numbers. Clinical tools can feel goal-driven or prescriptive."),
+            React.createElement("p", null, "Emberlands explores an alternative: can emotional patterns become visible through form, not interpretation?")
         ),
         React.createElement("div", { className: "border-l-4 border-stone-300 dark:border-stone-700 pl-6 py-1" },
             React.createElement("p", { className: "text-xl md:text-2xl font-medium text-stone-800 dark:text-stone-200" }, 
-              "The goal: Reveal structure without judgment."
+              "Design goal: reveal structure without scoring, ranking, or advice."
             )
         )
       ),
+
+      // 4. SYSTEM
       system: {
         title: "Emotions as Terrain",
         description: React.createElement(React.Fragment, null,
           React.createElement("p", { className: "mb-6" }, 
-            "At the heart of Emberlands is the emotional landscape metaphor. Instead of timelines or charts, emotional history is rendered as a navigable 3D terrain."
+            "Emberlands renders emotional history as a navigable 3D terrain — a space you can move through instead of a log you scroll past."
           ),
           React.createElement("ul", { className: "space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "Valleys represent calm"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-blue-500" }), "X (time): moments accumulate into a timeline you can traverse"
             ),
             React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-orange-500" }), "Peaks reflect intensity"
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-orange-500" }), "Y (intensity): emotional weight becomes elevation"
             ),
-            React.createElement("li", { className: "flex items-center gap-2" }, 
-              React.createElement("span", { className: "w-2 h-2 rounded-full bg-stone-500" }), "Plateaus indicate stability"
+             React.createElement("li", { className: "flex items-center gap-2" }, 
+              React.createElement("span", { className: "w-2 h-2 rounded-full bg-purple-500" }), "Z (similarity): emotionally similar moments cluster nearer together"
             )
           ),
+           React.createElement("ul", { className: "list-disc pl-5 space-y-1 text-stone-700 dark:text-stone-300 text-sm mb-6" },
+                React.createElement("li", null, "Valleys suggest calm / neutral states"),
+                React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),
+                React.createElement("li", null, "Plateaus signal emotional stability")
+            ),
           React.createElement("p", { className: "border-l-4 border-stone-900 dark:border-stone-100 pl-6 py-2 text-lg italic text-stone-700 dark:text-stone-300 font-serif" }, 
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
         ),
-        image: "/assets/images/EBL_projectcard.jpg" 
+        image: "/assets/images/EBL_view.png" 
       },
+
+      // 5. MODES
       modes: {
         title: "The Core Experience",
         items: [
           {
             title: "Log a Moment",
             subtitle: "Low Friction Input",
-            description: "Capture moments through short text, voice, or images without interrupting flow."
+            description: "Capture a short entry in seconds (text, voice, or image). No prompts, no forms — just enough to preserve the moment."
           },
           {
             title: "Inference",
-            subtitle: "No Manual Labeling",
-            description: "The system extracts emotional signals automatically, removing the need to score feelings."
+            subtitle: "No Mood Scores",
+            description: "The system infers emotion, intensity, and themes automatically so users don’t need to label themselves or pick from a mood list."
           },
           {
             title: "Terrain Generation",
             subtitle: "Living Landscape",
-            description: "Each entry contributes to a growing 3D emotional landscape that evolves over time."
+            description: "Entries become points in a living terrain that grows over time — shaping hills, valleys, and clusters as your history evolves."
           },
           {
             title: "Discovery",
-            subtitle: "Curiosity over Evaluation",
-            description: "Navigate to notice clusters, shifts, and rhythms. Reveal structure without judgment."
+            subtitle: "Patterns, Not Judgments",
+            description: "Explore by orbiting, scrubbing time, or filtering by theme. Patterns show up as gentle overlays — never as scores or “insights” that tell you what to feel."
           }
         ]
       },
+
+      // 6. TECH
       solution: React.createElement(React.Fragment, null,
          React.createElement("p", { className: "text-xl font-medium text-stone-800 dark:text-stone-200 mb-8" }, 
-           "Technology serves the experience—not the other way around."
+           "Emberlands treats technology as invisible scaffolding — the point is a calm, responsive space for reflection."
          ),
-         React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4" }, "Technical Architecture"),
-         React.createElement("ul", { className: "list-disc pl-5 space-y-3 text-stone-700 dark:text-stone-300 leading-relaxed" },
+         React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4" }, "Under the Hood (Built to Stay Private)"),
+         React.createElement("ul", { className: "list-disc pl-5 space-y-3 text-stone-700 dark:text-stone-300 leading-relaxed mb-6" },
            React.createElement("li", null, 
               React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Frontend"), 
-              ": React / Next.js with Three.js/WebGL for 3D rendering and D3.js for overlays."
+              ": React / Next.js with interactive 3D navigation (Three.js/WebGL)."
            ),
            React.createElement("li", null, 
               React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Processing"), 
-              ": NLP for emotion/theme extraction and embedding-based clustering for similarity."
+              ": NLP for emotion/theme extraction and embedding-based clustering."
            ),
            React.createElement("li", null, 
               React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Privacy"), 
-              ": Encrypted storage with offline-first considerations."
+              ": Encrypted storage with local-first option."
            )
-         )
+         ),
+         React.createElement("p", { className: "text-stone-600 dark:text-stone-400 italic" }, "The visualization is designed to load quickly and progressively as history grows.")
       ),
       techStack: ['React', 'Three.js', 'WebGL', 'NLP', 'D3.js'],
+
+      // 7. RESULTS
       results: {
         title: "Privacy & Ethics",
         content: React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
@@ -290,22 +330,24 @@ export const PROJECTS: Project[] = [
               )
            ),
            React.createElement("div", { className: "bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm" },
-              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "MVP Scope"),
+              React.createElement("h4", { className: "font-bold text-stone-900 dark:text-stone-50 mb-4 uppercase text-xs tracking-wider" }, "Pattern Discovery"),
               React.createElement("ul", { className: "list-disc pl-4 space-y-2 text-sm text-stone-600 dark:text-stone-300" },
-                React.createElement("li", null, "Text-based logging & Basic emotion extraction"),
-                React.createElement("li", null, "Time- and intensity-based 3D landscape"),
-                React.createElement("li", null, "Simple pattern overlays"),
-                React.createElement("li", null, React.createElement("strong", { className: "text-stone-900 dark:text-stone-100" }, "Excluded:"), " Social features, Advice, Gamification")
+                React.createElement("li", null, "Cycles and repeated emotional seasons"),
+                React.createElement("li", null, "Sudden spikes / transitions"),
+                React.createElement("li", null, "Gentle overlays + reflective prompts"),
+                React.createElement("li", null, "No prescriptions, no ranking")
               )
            )
         )
       },
+
+      // 8. IMPACT
       impact: React.createElement(React.Fragment, null,
         React.createElement("p", { className: "text-xl md:text-2xl font-medium leading-relaxed text-stone-900 dark:text-stone-50 mb-6" }, 
-          "Emberlands explores what happens when emotional data is treated not as something to fix, optimize, or diagnose—but as something to inhabit."
+          "Emberlands explores what happens when emotional data is treated not as something to fix or optimize, but as something you can inhabit."
         ),
         React.createElement("p", { className: "text-lg text-stone-600 dark:text-stone-300 leading-relaxed" }, 
-          "By turning lived experience into space, the project reframes reflection as exploration: slow, personal, and deeply human."
+          "I built it to make reflection feel less like reporting and more like wandering — returning to moments, noticing clusters, and recognizing emotional “seasons” over time."
         )
       )
     }
