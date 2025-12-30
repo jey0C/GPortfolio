@@ -218,9 +218,9 @@ export const PROJECTS: Project[] = [
           )
         ),
         images: [
-           "/assets/images/EBL_workshop1.jpg",
-           "/assets/images/EBL_workshop2.jpg", 
-           "/assets/images/EBL_workshop3.jpg"
+           "/assets/images/EBL_workshop1.png",
+           "/assets/images/EBL_workshop2.png", 
+           "/assets/images/EBL_workshop3.png"
         ]
       },
 
@@ -267,7 +267,7 @@ export const PROJECTS: Project[] = [
             "By externalizing emotion as space, Emberlands leverages spatial memory—allowing users to recall emotional periods as places rather than entries."
           )
         ),
-        image: "/assets/images/EBL_view.jpg" 
+        image: "/assets/images/EBL_view.png" 
       },
 
       // 5. MODES
