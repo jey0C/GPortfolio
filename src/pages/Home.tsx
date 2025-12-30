@@ -14,6 +14,7 @@ const Home: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const [isHovered, setIsHovered] = useState(false); // Tracks desktop hover
   const [isTapped, setIsTapped] = useState(false);   // Tracks mobile tap toggle
+  const [hasInteracted, setHasInteracted] = useState(false); // Tracks if user has ever interacted
   const [showIntro, setShowIntro] = useState(true);
   
   // Logic to determine if stickers should show
@@ -105,9 +106,9 @@ const Home: React.FC = () => {
               {/* Profile Image & Stickers Wrapper */}
               <motion.div 
                 className="relative inline-block group"
-                onHoverStart={() => setIsHovered(true)}
+                onHoverStart={() => { setIsHovered(true); setHasInteracted(true); }}
                 onHoverEnd={() => setIsHovered(false)}
-                onClick={() => setIsTapped(!isTapped)} // Tap to toggle on mobile
+                onClick={() => { setIsTapped(!isTapped); setHasInteracted(true); }} // Tap to toggle on mobile
               >
                 {/* Main Image Container */}
                 <motion.div 
@@ -138,7 +139,7 @@ const Home: React.FC = () => {
 
                 {/* HINT 1: DESKTOP (Hover?) - Positioned Left */}
                 <AnimatePresence>
-                  {!showStickers && !showIntro && (
+                  {!hasInteracted && !showStickers && !showIntro && (
                     <motion.div 
                       className="absolute top-12 -left-24 z-20 pointer-events-none hidden lg:block"
                       initial="hidden"
@@ -186,7 +187,7 @@ const Home: React.FC = () => {
 
                 {/* HINT 2: MOBILE (Tap?) - Positioned Right/Bottom to avoid cut-off */}
                 <AnimatePresence>
-                  {!showStickers && !showIntro && (
+                  {!hasInteracted && !showStickers && !showIntro && (
                     <motion.div 
                       className="absolute bottom-4 -right-12 z-20 pointer-events-none block lg:hidden"
                       initial="hidden"
