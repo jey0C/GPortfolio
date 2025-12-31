@@ -80,7 +80,9 @@ const Layout: React.FC = () => {
             </a>
             
             <a 
-              href="mailto:cruzgiovanni90@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=cruzgiovanni90@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
             >
               Contact
@@ -135,7 +137,12 @@ const Layout: React.FC = () => {
             <a href={RESUME_URL} target="_blank" rel="noreferrer" className="text-2xl font-medium text-stone-800 dark:text-stone-100">
               Resume
             </a>
-             <a href="mailto:cruzgiovanni90@gmail.com" className="text-2xl font-medium text-stone-800 dark:text-stone-100">
+             <a 
+               href="https://mail.google.com/mail/?view=cm&fs=1&to=cruzgiovanni90@gmail.com"
+               target="_blank"
+               rel="noopener noreferrer" 
+               className="text-2xl font-medium text-stone-800 dark:text-stone-100"
+             >
               Contact
             </a>
           </motion.div>

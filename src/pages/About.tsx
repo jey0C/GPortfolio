@@ -38,7 +38,7 @@ const About: React.FC = () => {
            <h3 className="text-xl font-bold mb-6 text-stone-900 dark:text-stone-50">Let's connect</h3>
            <div className="flex flex-col gap-6">
              <div className="flex gap-4">
-               <Button href="mailto:cruzgiovanni90@gmail.com">Email Me</Button>
+               <Button href="https://mail.google.com/mail/?view=cm&fs=1&to=cruzgiovanni90@gmail.com" external>Email Me</Button>
                <Button variant="secondary" href={RESUME_URL} external>Resume</Button>
              </div>
              

@@ -265,7 +265,6 @@ export const PROJECTS: Project[] = [
           React.createElement("p", { className: "mb-6" }, 
             "Emberlands renders emotional history as a navigable 3D terrain — a space you can move through instead of a log you scroll past."
           ),
-          // MODIFIED: Standard white bullets - Replaced technical XYZ with metaphorical descriptions
           React.createElement("ul", { className: "list-disc pl-5 space-y-2 font-medium text-stone-900 dark:text-stone-100 mb-8" },
             React.createElement("li", null, "Valleys suggest calm / neutral states"),
             React.createElement("li", null, "Peaks mark stress, excitement, or intensity"),

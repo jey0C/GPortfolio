@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 import Button from '../components/Button';
 import Scribble from '../src/components/Scribble';
 import IntroAnimation from '../components/IntroAnimation';
+import ContactModal from '../components/ContactModal';
 import { Layers, Code, Database, Shirt, Disc3, Gamepad2, Palette } from 'lucide-react';
 
 // Using local asset path
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
   const [isTapped, setIsTapped] = useState(false);   // Tracks mobile tap toggle
   const [hasInteracted, setHasInteracted] = useState(false); // Tracks if user has ever interacted
   const [showIntro, setShowIntro] = useState(true);
+  const [showContact, setShowContact] = useState(false);
   
   // Logic to determine if stickers should show
   const showStickers = isHovered || isTapped;
@@ -90,6 +92,11 @@ const Home: React.FC = () => {
     <div className="min-h-screen">
       {/* Intro Overlay */}
       {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+
+      {/* Contact Modal */}
+      <AnimatePresence>
+        {showContact && <ContactModal onClose={() => setShowContact(false)} />}
+      </AnimatePresence>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
         
@@ -319,7 +326,7 @@ const Home: React.FC = () => {
                 <Button variant="white" href={RESUME_URL} external>
                   Resume
                 </Button>
-                <Button href="mailto:cruzgiovanni90@gmail.com">
+                <Button onClick={() => setShowContact(true)}>
                   Contact
                 </Button>
               </div>
@@ -400,7 +407,7 @@ const Home: React.FC = () => {
             {/* Mobile Actions (Visible only on mobile/tablet) */}
             <div className="flex gap-4 mb-8 md:hidden">
               <Button variant="white" href={RESUME_URL} external>Resume</Button>
-              <Button href="mailto:cruzgiovanni90@gmail.com">Contact</Button>
+              <Button onClick={() => setShowContact(true)}>Contact</Button>
             </div>
 
             {/* Arrow pointing back to sticky sidebar buttons (Desktop only) */}
