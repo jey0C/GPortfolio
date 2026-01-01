@@ -326,9 +326,7 @@ const Home: React.FC = () => {
                 <Button variant="white" href={RESUME_URL} external>
                   Resume
                 </Button>
-                <Button onClick={() => setShowContact(true)}>
-                  Contact
-                </Button>
+                {/* Contact button removed from hero */}
               </div>
             </motion.div>
           </div>
@@ -404,16 +402,14 @@ const Home: React.FC = () => {
           <section className="pt-12 border-t border-stone-200 dark:border-stone-800 relative">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 dark:text-stone-50 mb-8">Let's build something real.</h2>
             
-            {/* Mobile Actions (Visible only on mobile/tablet) */}
-            <div className="flex gap-4 mb-8 md:hidden">
-              <Button variant="white" href={RESUME_URL} external>Resume</Button>
-              <Button onClick={() => setShowContact(true)}>Contact</Button>
-            </div>
-
-            {/* Arrow pointing back to sticky sidebar buttons (Desktop only) */}
-            <div className="absolute -left-[5rem] lg:-left-[25rem] top-4 z-0 hidden md:block pointer-events-none">
-               {/* Positioned to point from the right column footer towards the left column sticky sidebar */}
-               <Scribble type="long-arrow-left" className="text-blue-500 dark:text-blue-400 opacity-80" delay={0.2} />
+            {/* Action Buttons & Dynamic Arrow */}
+            <div className="relative inline-block group">
+              <div className="flex gap-4 mb-8">
+                {/* Resume button removed */}
+                <Button onClick={() => setShowContact(true)}>Contact</Button>
+              </div>
+              
+              {/* Playful arrow animation removed */}
             </div>
           </section>
 
