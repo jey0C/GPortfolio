@@ -1,20 +1,44 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Portfolio
 
-# Run and deploy your AI Studio app
+This repository contains the source code for my personal portfolio website.
 
-This contains everything you need to run your app locally.
+The site serves as a living archive of my work as a software engineer and creative technologist, showcasing selected projects, experiments, and design thinking across systems, interaction, and product development.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1kvppWe8_YN78zLXTT-2ts4nF5RQtymYc
+---
 
-## Run Locally
+## Overview
 
-**Prerequisites:**  Node.js
+The portfolio is designed to be:
 
+- **Clear and focused** — content-forward with minimal visual noise  
+- **System-oriented** — reflecting how I think about architecture, performance, and maintainability  
+- **Iterative** — continuously refined as projects evolve  
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+
+## Tech Stack
+
+- HTML / CSS / JavaScript  
+- React (where applicable)  
+- Modern CSS layout and animation techniques  
+
+---
+
+## Structure
+
+- `pages/` — individual site pages  
+- `assets/` — images, icons, and static resources  
+- `components/` — reusable UI components  
+- `styles/` — global styles and page-specific styling  
+
+> Structure may evolve as the site grows.
+
+---
+
+## Development
+
+To run locally:
+
+```bash
+npm install
+npm run dev
