@@ -15,23 +15,45 @@ const About: React.FC = () => {
         <h1 className="text-4xl md:text-6xl font-bold mb-8 text-stone-900 dark:text-stone-50">About Gio</h1>
         
         <div className="prose prose-stone dark:prose-invert prose-lg max-w-none">
-          <p className="lead text-2xl text-stone-600 dark:text-stone-300 font-medium mb-8">
-            I am a software engineer and creative technologist interested in the intersection of robust systems and human interaction.
+          <p className="lead text-2xl text-stone-900 dark:text-stone-100 font-medium mb-8 leading-snug">
+            I design software systems that disappear—because when they work well, users shouldn’t have to think about them.
           </p>
 
-          <p className="text-stone-600 dark:text-stone-300">
-            My journey began with a fascination for how digital tools shape human creativity. I don't just write code; I design systems that feel inevitable. Whether it's a high-throughput backend service or a delicate XR interaction, I bring the same level of care to the architecture as I do to the user experience.
+          <p className="text-stone-600 dark:text-stone-300 mb-6">
+            I am a software engineer and creative technologist working at the intersection of robust systems and human interaction. My work spans high-throughput backend services and delicate, real-time interactive experiences, guided by the same principle: <strong>complexity belongs in the system, not the user.</strong>
           </p>
 
-          <h3 className="text-2xl font-bold mt-12 mb-4 text-stone-900 dark:text-stone-50">Philosophy</h3>
-          <p className="text-stone-600 dark:text-stone-300">
-            I believe that the best engineering is invisible. It works so well that the user forgets it's there. To achieve this, I lean heavily on:
+          <p className="text-stone-600 dark:text-stone-300 mb-12">
+            My interest in technology began with a fascination for how digital tools shape human creativity. I don’t just write code; I design systems that feel inevitable. Whether optimizing a distributed service or refining an XR interaction, I bring the same level of care to architectural integrity as I do to user experience.
           </p>
-          <ul className="list-disc pl-6 space-y-2 mb-8 text-stone-600 dark:text-stone-300">
-            <li><strong>Systems Thinking:</strong> Understanding how individual components affect the whole.</li>
-            <li><strong>HCI Principles:</strong> Respecting user agency and cognitive load.</li>
-            <li><strong>Iterative Polish:</strong> Great software is grown, not just built.</li>
-          </ul>
+
+          <h3 className="text-3xl font-bold mt-16 mb-6 text-stone-900 dark:text-stone-50">Philosophy</h3>
+          <p className="text-stone-600 dark:text-stone-300 mb-8">
+            I believe the best engineering is invisible—not because it is simple, but because its complexity has been carefully absorbed by the system. To achieve this, I consistently lean on:
+          </p>
+          
+          <div className="space-y-8 not-prose mt-8">
+            <div>
+              <h4 className="text-xl font-bold text-stone-900 dark:text-stone-50 mb-2">Systems Thinking</h4>
+              <p className="text-stone-600 dark:text-stone-400">
+                Designing components with awareness of emergent behavior, knowing that real systems fail in unexpected ways.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="text-xl font-bold text-stone-900 dark:text-stone-50 mb-2">Human-Centered Interaction</h4>
+              <p className="text-stone-600 dark:text-stone-400">
+                Respecting user agency and cognitive load by shaping interactions that feel responsive, legible, and intentional.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-xl font-bold text-stone-900 dark:text-stone-50 mb-2">Iterative Polish</h4>
+              <p className="text-stone-600 dark:text-stone-400">
+                Treating software as something grown over time—refined through use, feedback, and continuous adjustment rather than rushed completion.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="mt-16 border-t border-stone-200 dark:border-stone-800 pt-8">

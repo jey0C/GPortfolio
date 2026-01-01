@@ -158,7 +158,7 @@ const Layout: React.FC = () => {
       <footer className="py-12 md:py-24 border-t border-stone-200 dark:border-stone-800 mt-24 relative z-10">
         <div className="container mx-auto max-w-6xl px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>
-            <h4 className="font-bold text-lg mb-2 text-stone-900 dark:text-stone-50">Giovanni "Gio" Cruz</h4>
+            <h4 className="font-bold text-lg mb-2 text-stone-900 dark:text-stone-50">Giovanni Cruz</h4>
             <p className="text-stone-500 dark:text-stone-400 max-w-xs">
               Building human-centered systems with engineering rigor and creative intent.
             </p>

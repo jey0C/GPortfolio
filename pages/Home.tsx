@@ -36,7 +36,7 @@ const Home: React.FC = () => {
   const otherProjects = PROJECTS.filter(p => p.type !== 'flagship');
   
   const hintTextDesktop = "hover?".split("");
-  const hintTextMobile = "tap?".split("");
+  const hintTextMobile = "tap me".split("");
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -148,7 +148,7 @@ const Home: React.FC = () => {
                 <AnimatePresence>
                   {!hasInteracted && !showStickers && !showIntro && (
                     <motion.div 
-                      className="absolute top-12 -left-24 z-20 pointer-events-none hidden lg:block"
+                      className="absolute top-12 -left-28 z-20 pointer-events-none hidden lg:block"
                       initial="hidden"
                       animate="visible"
                       exit="exit"
@@ -178,7 +178,7 @@ const Home: React.FC = () => {
                             ))}
                          </div>
                          <motion.div 
-                            className="w-10 h-6 relative"
+                            className="w-12 h-8 relative"
                             variants={{
                               hidden: { opacity: 0, scale: 0.8 },
                               visible: { opacity: 1, scale: 1, transition: { delay: 2.0, duration: 0.4 } },
@@ -192,27 +192,16 @@ const Home: React.FC = () => {
                   )}
                 </AnimatePresence>
 
-                {/* HINT 2: MOBILE (Tap?) - Positioned Right/Bottom to avoid cut-off */}
+                {/* HINT 2: MOBILE (Tap me) - Positioned Left */}
                 <AnimatePresence>
                   {!hasInteracted && !showStickers && !showIntro && (
                     <motion.div 
-                      className="absolute bottom-4 -right-12 z-20 pointer-events-none block lg:hidden"
+                      className="absolute top-1/2 -translate-y-1/2 -left-20 z-20 pointer-events-none block lg:hidden"
                       initial="hidden"
                       animate="visible"
                       exit="exit"
                     >
-                      <div className="transform rotate-12 flex items-center gap-1">
-                         <motion.div 
-                            className="w-8 h-5 relative rotate-180 transform scale-x-[-1]" 
-                            variants={{
-                              hidden: { opacity: 0, scale: 0.8 },
-                              visible: { opacity: 1, scale: 1, transition: { delay: 1.5, duration: 0.4 } },
-                              exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } }
-                            }}
-                         >
-                             {/* Reusing curved arrow, flipped for visual variety */}
-                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={1.5} />
-                         </motion.div>
+                      <div className="transform -rotate-12 flex items-center gap-1">
                          <div className="flex font-mono text-xs font-bold text-blue-500 dark:text-blue-400 tracking-tighter">
                             {hintTextMobile.map((char, index) => (
                               <motion.span
@@ -232,10 +221,20 @@ const Home: React.FC = () => {
                                   }
                                 }}
                               >
-                                {char}
+                                {char === " " ? "\u00A0" : char}
                               </motion.span>
                             ))}
                          </div>
+                         <motion.div 
+                            className="w-8 h-5 relative" 
+                            variants={{
+                              hidden: { opacity: 0, scale: 0.8 },
+                              visible: { opacity: 1, scale: 1, transition: { delay: 1.5, duration: 0.4 } },
+                              exit: { opacity: 0, scale: 0.5, transition: { duration: 0.3 } }
+                            }}
+                         >
+                             <Scribble type="curved-arrow" className="text-blue-500 dark:text-blue-400" delay={1.5} />
+                         </motion.div>
                       </div>
                     </motion.div>
                   )}
@@ -374,25 +373,39 @@ const Home: React.FC = () => {
              </div>
              
              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Systems Architecture */}
                 <div className="space-y-3">
                   <Layers className="w-6 h-6 text-stone-900 dark:text-stone-100" />
-                  <h3 className="font-bold text-stone-900 dark:text-stone-50">Systems Architecture</h3>
+                  <div>
+                    <h3 className="font-bold text-stone-900 dark:text-stone-50">Systems Architecture</h3>
+                    <p className="text-sm font-serif italic text-stone-500 dark:text-stone-400 mb-2">Reliability at scale</p>
+                  </div>
                   <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
-                    Designing scalable backends using Go, Node.js, and container orchestration. Focusing on fault tolerance and observability.
+                    Designing fault-tolerant backend systems with a focus on failure modes, observability, and long-term maintainability. I approach architecture as a living system—built to adapt under load, degrade gracefully, and remain understandable as complexity grows.
                   </p>
                 </div>
+
+                {/* Creative Engineering */}
                 <div className="space-y-3">
                   <Code className="w-6 h-6 text-stone-900 dark:text-stone-100" />
-                  <h3 className="font-bold text-stone-900 dark:text-stone-50">Creative Engineering</h3>
+                  <div>
+                    <h3 className="font-bold text-stone-900 dark:text-stone-50">Creative Engineering</h3>
+                    <p className="text-sm font-serif italic text-stone-500 dark:text-stone-400 mb-2">Expressive real-time interaction</p>
+                  </div>
                   <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
-                    Bridging art and code with WebGL, GLSL shaders, and custom interaction pipelines for the web and XR.
+                    Building interactive systems where performance, perception, and responsiveness shape the user experience. My work explores how code can feel intuitive and expressive through real-time graphics, custom interaction pipelines, and embodied XR environments.
                   </p>
                 </div>
+
+                {/* Full Stack & Data */}
                 <div className="space-y-3 md:col-span-2 pt-6 border-t border-stone-200 dark:border-stone-700/50">
                   <Database className="w-6 h-6 text-stone-900 dark:text-stone-100" />
-                  <h3 className="font-bold text-stone-900 dark:text-stone-50">Full Stack & Data</h3>
+                  <div>
+                    <h3 className="font-bold text-stone-900 dark:text-stone-50">Full Stack & Data</h3>
+                    <p className="text-sm font-serif italic text-stone-500 dark:text-stone-400 mb-2">End-to-end system coherence</p>
+                  </div>
                   <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
-                    End-to-end type safety, database design (SQL/NoSQL), and performant frontend hydration strategies.
+                    Designing complete systems from data models to user interfaces, ensuring type safety, performance, and feedback loops reinforce each other. I treat frontend and backend decisions as a single design space rather than separate concerns.
                   </p>
                 </div>
              </div>
