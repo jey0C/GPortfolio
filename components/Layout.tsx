@@ -4,11 +4,13 @@ import { NAV_ITEMS, RESUME_URL } from '../constants';
 import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GioLogo from './GioLogo';
+import ContactModal from './ContactModal';
 
 const Layout: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [showContact, setShowContact] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -51,6 +53,11 @@ const Layout: React.FC = () => {
       {/* Film Grain Texture Overlay */}
       <div className="bg-noise" />
 
+      {/* Contact Modal (Global via Header) */}
+      <AnimatePresence>
+        {showContact && <ContactModal onClose={() => setShowContact(false)} />}
+      </AnimatePresence>
+
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 py-4' : 'bg-transparent py-6'}`}
       >
@@ -79,14 +86,12 @@ const Layout: React.FC = () => {
               Resume
             </a>
             
-            <a 
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=cruzgiovanni90@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setShowContact(true)}
               className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
             >
               Contact
-            </a>
+            </button>
 
             <button
               onClick={toggleTheme}
@@ -137,14 +142,15 @@ const Layout: React.FC = () => {
             <a href={RESUME_URL} target="_blank" rel="noreferrer" className="text-2xl font-medium text-stone-800 dark:text-stone-100">
               Resume
             </a>
-             <a 
-               href="https://mail.google.com/mail/?view=cm&fs=1&to=cruzgiovanni90@gmail.com"
-               target="_blank"
-               rel="noopener noreferrer" 
+             <button 
+               onClick={() => {
+                 setShowContact(true);
+                 setMobileMenuOpen(false);
+               }}
                className="text-2xl font-medium text-stone-800 dark:text-stone-100"
              >
               Contact
-            </a>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
